@@ -1,0 +1,26 @@
+<!-- http://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html -->
+
+<project>
+
+<target name="clean">
+  <delete dir="build"/>
+  <delete file="out.txt"/>
+  <delete file="edr.out"/>
+  <delete file="trr.out"/>
+</target>
+
+<target name="compile">
+  <mkdir dir="build/classes"/>
+  <javac srcdir="src" destdir="build/classes" includeantruntime="false"/>
+</target>
+
+<target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/Aguan.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="Aguan.Main"/>
+            </manifest>
+        </jar>
+</target>
+
+</project>
