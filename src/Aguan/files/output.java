@@ -13,8 +13,8 @@ public class output extends file {
     public void PrintSummary(TheMatrix TM, double timeNow){
          pout.printf("%.4f %5.4f ",(timeNow*1.6),(TM.totEnergyVal*TM.ep));
          pout.printf("%5.4f %5.4f %5.4f %5.4f %5.4f %5.4f ",(TM.potEnergyVal*TM.ep),(TM.potEnergyVdwVal*TM.ep),
-                                                              (TM.potEnergyEeVal*TM.ep),(TM.potEnergyRf1Val*TM.ep),
-                                                              (TM.potEnergyRf2Val*TM.ep),(TM.potEnergyEfVal*TM.ep));
+                                                            (TM.potEnergyEeVal*TM.ep),(TM.potEnergyRf1Val*TM.ep),
+                                                            (TM.potEnergyRf2Val*TM.ep),(TM.potEnergyEfVal*TM.ep));
          pout.printf("%5.4f %5.4f %5.4f ",(TM.kinEnergyVal*TM.ep),(TM.rotKinEnergyVal*TM.ep),(TM.trzKinEnergyVal*TM.ep));
          pout.printf("%5.4f %5.4f %5.4f ",(TM.instantTemperature*78.42),(TM.translationalTemperature*78.42),(TM.rotationalTemperature*78.42));
          pout.printf("%5.4f \n",TM.pressure*TM.pre_convFact);//mega pascal convertion factor

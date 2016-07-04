@@ -23,6 +23,7 @@ public class rigidLeapFrogBerenTV extends MD{
         ComputeTorqs(TM);
         EvalProps(TM);
         AccumProps(TM, 1);
+        System.out.println("stepCount = "+TM.stepCount);
         if(TM.stepCount == 0){
            timeNow = TM.stepCount * TM.deltaT;
            AdjustTemp(TM);
@@ -152,7 +153,7 @@ public class rigidLeapFrogBerenTV extends MD{
         if(TM.stepCount % TM.trajOut == 0){
             dcdM.write_dcdStep((TM.nPoints*TM.nMol),TM.rxs,TM.rys,TM.rzs,TM.ro,TM.vdwPoint);
             RR.writeRestart(TM);
-        }        
+        }
     }
     public void LeapfrogStep(int part, TheMatrix TM){
           double[] mc, mt;
@@ -164,7 +165,6 @@ public class rigidLeapFrogBerenTV extends MD{
                  TM.wvx[n] = TM.wvx[n] + temp * TM.wax[n];
                  TM.wvy[n] = TM.wvy[n] + temp * TM.way[n];
                  TM.wvz[n] = TM.wvz[n] + temp * TM.waz[n];
-
                  TM.rvx[n] = TM.rvx[n] + temp * TM.rax[n];
                  TM.rvy[n] = TM.rvy[n] + temp * TM.ray[n];
                  TM.rvz[n] = TM.rvz[n] + temp * TM.raz[n];
@@ -189,7 +189,6 @@ public class rigidLeapFrogBerenTV extends MD{
                  TM.wvx[n] = TM.wvx[n] + temp * TM.wax[n];
                  TM.wvy[n] = TM.wvy[n] + temp * TM.way[n];
                  TM.wvz[n] = TM.wvz[n] + temp * TM.waz[n];
-
                  TM.rvx[n] = TM.rvx[n] + temp * TM.rax[n];
                  TM.rvy[n] = TM.rvy[n] + temp * TM.ray[n];
                  TM.rvz[n] = TM.rvz[n] + temp * TM.raz[n];
@@ -318,6 +317,7 @@ public class rigidLeapFrogBerenTV extends MD{
                }
                TM.rotationalTemperature = (TM.vvrSum/TM.nMol)/3.0;
                TM.rotKinEnergyVal = 0.5 * TM.vvrSum/TM.nMol;
+              
         }else if(TM.ThermostatType == 3){
                vFac = Math.sqrt(1+(TM.tau*(((TM.targetTemperature)/TM.instantTemperature)-1)));
                TM.vvSum = 0.0;
@@ -337,6 +337,24 @@ public class rigidLeapFrogBerenTV extends MD{
                }
                TM.rotationalTemperature = (TM.vvrSum/TM.nMol)/3.0;
                TM.rotKinEnergyVal = 0.5 * TM.vvrSum/TM.nMol;
+        }else if(TM.ThermostatType == -1){
+              // The empyt set thermostat. No thermostat is a subset of all thermostats. Nature takes care of itself.
+              TM.vvSum = 0.0;
+              for(int n = 0; n < TM.nMol; n++){
+                  TM.vvSum += TM.rvx[n]*TM.rvx[n] + TM.rvy[n]*TM.rvy[n] + TM.rvz[n]*TM.rvz[n];
+              }
+              TM.translationalTemperature = (TM.vvSum/TM.nMol)/3.0;
+              TM.trzKinEnergyVal = 0.5 * TM.vvSum/TM.nMol;
+
+              TM.vvrSum = 0.0;
+              for(int n = 0; n < TM.nMol; n++){
+                  wvBx = TM.rMatT[(n*9)+0]*TM.wvx[n] + TM.rMatT[(n*9)+1]*TM.wvy[n] + TM.rMatT[(n*9)+2]*TM.wvz[n];
+                  wvBy = TM.rMatT[(n*9)+3]*TM.wvx[n] + TM.rMatT[(n*9)+4]*TM.wvy[n] + TM.rMatT[(n*9)+5]*TM.wvz[n];
+                  wvBz = TM.rMatT[(n*9)+6]*TM.wvx[n] + TM.rMatT[(n*9)+7]*TM.wvy[n] + TM.rMatT[(n*9)+8]*TM.wvz[n];
+                  TM.vvrSum += TM.mInertX*wvBx*wvBx + TM.mInertY*wvBy*wvBy + TM.mInertZ*wvBz*wvBz;
+              }
+              TM.rotationalTemperature = (TM.vvrSum/TM.nMol)/3.0;
+              TM.rotKinEnergyVal = 0.5 * TM.vvrSum/TM.nMol;              
         }else{
               TM.vvSum = 0.0;
               for(int n = 0; n < TM.nMol; n++){

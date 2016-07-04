@@ -1,0 +1,80 @@
+Angular Velocity Validation
+July 3rd, 2016
+
+Test:
+    In this test, an 8 water molecule simulation is set up by manually
+modifying the a randomly generated RST file. In the RST file, each molecule has 
+different initial X, Y and Z rotational angular velocities. Angular velocities 
+of 1 radian per femtosecond is given to each possible XYZ axis combination in 
+the following way:.  
+
+ANGVELS n= 8 x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)
+0 0.0 0.0 0.0
+1 0.0 0.0 279.2526803190927
+2 0.0 279.2526803190927 0.0
+3 0.0 279.2526803190927 279.2526803190927
+4 279.2526803190927 0.0 0.0
+5 279.2526803190927 0.0 279.2526803190927
+6 279.2526803190927 279.2526803190927 0.0
+7 279.2526803190927 279.2526803190927 279.2526803190927
+
+Angular velocity = (2*np.pi/36)/0.000625 = 279.2526803190927 radians per reduced unit of
+time, whic is equivalent to a femto-second. This is equivalent to 10 degrees per step.
+
+Setup:
+    An RST file is randomly generated, and manually modify to setup the test in the following
+way. The water molecules are all oriented the same way at the beginning of the simulation. 
+The rCut is set to ro=0.03 so that molecules do not interact with each other and accelarate 
+other molecules. All initial accelerations are set to zero, and all transaltional degrees of 
+freedom are set to 0.0. All waters start in the same orientation.
+
+Results:
+    The simulation was ran for 36 steps. Water molecules are aligned n a 2.0x2.0x2.0 box
+with the following coordinates. 
+0 0.3 1.0 1.0
+1 0.5 1.0 1.0
+2 0.7 1.0 1.0
+3 0.9 1.0 1.0
+4 1.1 1.0 1.0
+5 1.3 1.0 1.0
+6 1.5 1.0 1.0
+7 1.7 1.0 1.0
+The first water is located near the edge of the x-coordinat enad does not move because
+it has 0.0 angular velocity in the XYZ directions. left of that waters move in the following way:
+
+Water 0 does not move at all
+Water 1 moves around the Z   axis and completes a full rotation in 36 steps or femto-seconds.
+Water 2 moves around the Y   axis and completes a full rotation in 36 femto-seconds.
+Water 3 moves around the YZ  axis and completes a full rotation in 25-26 femto-seconds.
+Water 4 moves around the X   axis and completes a full rotation in 36 femto-seconds.
+Water 5 moves around the XZ  axis and completes a full rotation in 25-26 femto-seconds.
+Water 6 moves around the XY  axis and completes a full rotation in 25-26 femto-seconds.
+Water 1 moves around the XYZ axis and completes a full rotation in 20-21 femto-seconds.
+
+This proves that the program is right. Water molecules with non zero angular velocities 
+around one axis only, complete a full rotation in 36 steps. 
+
+angular velocity = 2*PI/36 = 0.17453292519943295
+Number of steps to complete a full rotation: 2*PI/0.17453292519943295 = 36.0 steps
+
+When the same angular velocity is applied to 2 or 3 axis at the same time, the rotations are completed
+in fewer steps. That is becase for 2 axis the combined angular velocity for two vectors is:
+
+sqrt(avx*avx + avy*avy) = 0.24682682989768701
+Number of steps to complete a full rotation: 2*PI/0.24682682989768701 = 25.45584412271571 steps
+
+and the combine velocity of three vectors is:
+
+sqrt(avx*avx + avy*avy + avz*avz)) = 0.30229989403903629
+Number of steps to complete a full rotation: 2*PI/0.30229989403903629 = 20.784609690826528 steps
+
+##################################################################################################
+                          VALIDATION                                                             #
+It can be seen from a vizualization of the trajectories perform a full rotation for the water    #
+molecules at the expected number of steps. This validates this part of the program.              #
+##################################################################################################
+
+NOTE:If the molecules are visualized using VMD, make sure to load the CRD after the PSF file, and follow
+that with the DCD file. When loading the CRD, make sure that the file type that tells VMD the forlmat of
+the file is the one corresponding to "CHARMM coordinates". This is because the suffix CRD is used
+by another program with a different format. 

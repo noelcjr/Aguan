@@ -47,7 +47,7 @@ public class gro extends coordinate {
                          }
                       }
                       pgro.printf("%5dSOL%7s%5d",molCount,atomTyp,atomCount);
-                      pgro.printf("%8.3f%8.3f%8.3f\n",(TM.rxs[a]*TM.ro/10),(TM.rys[a]*TM.ro/10),(TM.rzs[a]*TM.ro/10));
+                      pgro.printf("%8.3f%8.3f%8.3f\n",(TM.rxs[a]*TM.ro),(TM.rys[a]*TM.ro),(TM.rzs[a]*TM.ro));
                       atomCount++;
                       if((TM.molType.equals("tip5p") || TM.molType.equals("st2")) && atomTyp.equals("LP2")){
                           molCount++;

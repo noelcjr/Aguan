@@ -49,9 +49,9 @@ public class restart extends file {
                parameters.DefinePar(TM,args[4]);            // Water model.
                TM.initMatrix();
                parameters.DefineMol(TM,args[4]);     
-               TM.regionX = Double.parseDouble(args[5]);    // Box X
-               TM.regionY = Double.parseDouble(args[6]);    // Box Y
-               TM.regionZ = Double.parseDouble(args[7]);    // Box Z
+               TM.regionX = Double.parseDouble(args[5])/TM.ro;    // Box X
+               TM.regionY = Double.parseDouble(args[6])/TM.ro;    // Box Y
+               TM.regionZ = Double.parseDouble(args[7])/TM.ro;    // Box Z
                RandomGenerate(TM, Long.parseLong(args[8]), args[1]); // args[8] is the seed to reproduce random number generation.
                writeRestartIn(TM);
         }else if(args[1].equals("-crystal")){
@@ -151,11 +151,11 @@ public class restart extends file {
                 }else if(i == 1){
                     pout.println("MOLECULES "+TM.nMol+" "+TM.molType);
                 }else if(i == 2){
-                    pout.println("BOX "+TM.regionX+" "+TM.regionY+" "+TM.regionZ);
+                    pout.println("BOX "+(TM.regionX*TM.ro)+" "+(TM.regionY*TM.ro)+" "+(TM.regionZ*TM.ro));
                 }else if(i == 3){
                     pout.println("COORDS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
                     for(int j = 0; j < TM.nMol; j++){
-                        pout.println(j+" "+TM.rx[j]+" "+TM.ry[j]+" "+TM.rz[j]);
+                        pout.println(j+" "+(TM.rx[j]*TM.ro)+" "+(TM.ry[j]*TM.ro)+" "+(TM.rz[j]*TM.ro));
                     }
                 }else if(i == 4){
                     pout.println("VELS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
@@ -196,11 +196,11 @@ public class restart extends file {
                 }else if(i == 1){
                     pout.println("MOLECULES "+TM.nMol+" "+TM.molType);
                 }else if(i == 2){
-                    pout.println("BOX "+TM.regionX+" "+TM.regionY+" "+TM.regionZ);
+                    pout.println("BOX "+(TM.regionX*TM.ro)+" "+(TM.regionY*TM.ro)+" "+(TM.regionZ*TM.ro));
                 }else if(i == 3){
                     pout.println("COORDS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
                     for(int j = 0; j < TM.nMol; j++){
-                        pout.println(j+" "+TM.rx[j]+" "+TM.ry[j]+" "+TM.rz[j]);
+                        pout.println(j+" "+(TM.rx[j]*TM.ro)+" "+(TM.ry[j]*TM.ro)+" "+(TM.rz[j]*TM.ro));
                     }
                 }else if(i == 4){
                     pout.println("VELS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
@@ -251,9 +251,9 @@ public class restart extends file {
                    TM.stepLimit = TM.stepLimit + TM.stepCount;
                    TM.restartCount = Integer.parseInt(token.nextToken());
                 }else if(temp.equals("BOX")){
-                   TM.regionX = Double.parseDouble(token.nextToken());
-                   TM.regionY = Double.parseDouble(token.nextToken());
-                   TM.regionZ = Double.parseDouble(token.nextToken());
+                   TM.regionX = Double.parseDouble(token.nextToken())/TM.ro;
+                   TM.regionY = Double.parseDouble(token.nextToken())/TM.ro;
+                   TM.regionZ = Double.parseDouble(token.nextToken())/TM.ro;
                    TM.volume = TM.regionX*TM.regionY*TM.regionZ;
                 }else if(temp.equals("MOLECULES")){
                    TM.nMol = Integer.parseInt(token.nextToken());
@@ -283,9 +283,9 @@ public class restart extends file {
                         line = dFile.readLine( );
                         token2 = new StringTokenizer(line);
                            temp = token2.nextToken();
-                           TM.rx[i] = Double.parseDouble(token2.nextToken());
-                           TM.ry[i] = Double.parseDouble(token2.nextToken());
-                           TM.rz[i] = Double.parseDouble(token2.nextToken());
+                           TM.rx[i] = Double.parseDouble(token2.nextToken())/TM.ro;
+                           TM.ry[i] = Double.parseDouble(token2.nextToken())/TM.ro;
+                           TM.rz[i] = Double.parseDouble(token2.nextToken())/TM.ro;
                     }
                 }else if(temp.equals("VELS")){
                     temp = token.nextToken();
@@ -366,7 +366,7 @@ public class restart extends file {
         double xrt, yrt, zrt;
         generator = new Random(seed);
         if(type.equals("-random")){
-           for(int n = 0; n < TM.nMol; n++){
+           for(int n = 0; n < TM.nMol; n++){ //No need to devide by TM.ro. regionXYZ already rescaled.
               TM.rx[n] = generator.nextDouble()*TM.regionX;
               TM.ry[n] = generator.nextDouble()*TM.regionY;
               TM.rz[n] = generator.nextDouble()*TM.regionZ;
