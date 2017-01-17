@@ -1,0 +1,10 @@
+deltaT            1
+boundaryCondition periodic 
+rCut              0.8
+stepAvg           1
+trajOut           10
+temperature       298
+tau               0.301204
+TempRateChange    0.0
+ThermostatType    1
+electricField     0

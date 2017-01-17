@@ -1,0 +1,11 @@
+deltaT            1
+boundaryCondition xyzWall 
+rCut              0.8
+stepAvg           1
+trajOut           10
+temperature       298
+tau               0.301204
+TempRateChange    0.0
+ThermostatType    2
+electricField     0
+wallType          0

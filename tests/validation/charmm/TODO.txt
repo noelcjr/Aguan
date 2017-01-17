@@ -1,0 +1,4 @@
+1. Output forces from CHARMM onto a CRD file.
+2. Output energies, temp, pressure etc from CHARMM to a text file.
+3. Change checkGromacs to check charmm.
+4. Contact Makers guy in San Francisco and propose the idea. He might point me to a book deal.

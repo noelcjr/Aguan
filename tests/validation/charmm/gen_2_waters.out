@@ -1,0 +1,1142 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+                   (CHARMM) - Developmental Version 32b1     August 15, 2005   
+       Copyright(c) 1984-2001  President and Fellows of Harvard College
+                              All Rights Reserved
+      Current operating system: Linux-4.2.0-42-generic(x86_64)@noel-leno
+                 Created on  1/12/17 at 12:49: 1 by user: noel        
+
+            Maximum number of ATOMS:    360720, and RESidues:       90180
+            Current HEAP size:       100000000, and STACK size:  10000000
+
+ RDTITL>  
+ RDTITL> No title read.
+
+      ***** LEVEL  1 WARNING FROM <RDTITL> *****
+      ***** Title expected.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name "/home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf::
+ OPNLGU> Unit  1 opened for READONLY access to /home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf
+  
+ CHARMM>    read rtf card unit 1
+ MAINIO> Residue topology file being read from unit   1.
+ TITLE> *>>>>>>>>CHARMM22 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>   JULY, 2004    <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 2 card name "/home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm::
+ OPNLGU> Unit  2 opened for READONLY access to /home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm
+  
+ CHARMM>    read para card unit 2
+
+          PARAMETER FILE BEING READ FROM UNIT  2
+ TITLE> *>>>>> CHARMM22 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>> DECEMBER, 2003 <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+  
+ CHARMM>    close unit 2
+ VCLOSE: Closing unit    2 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    ! Read in structure files
+ CHARMM>    ! =======================
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name "/home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.psf"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.psf::
+ OPNLGU> Unit  1 opened for READONLY access to /home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.psf
+  
+ CHARMM>    read psf unit 1 card
+ MAINIO> Protein structure file being read from unit   1.
+ TITLE>  * BUILD WATERS AROUND PROTEIN
+ TITLE>  *  DATE:     8/29/16     18:46:37      CREATED BY USER: noel
+ TITLE>  *
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        3   Number of residues   =     3787
+         Number of atoms         =    11988   Number of groups     =     3989
+         Number of bonds         =    11999   Number of angles     =     5144
+         Number of dihedrals     =     2057   Number of impropers  =      139
+         Number of cross-terms   =       47
+         Number of HB acceptors  =     3813   Number of HB donors  =       82
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name "/home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.crd"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.crd::
+ OPNLGU> Unit  1 opened for READONLY access to /home/noel/Projects/Protein_design/Insulin/Struct_Prep/box_setup/2hiu_box_1.crd
+  
+ CHARMM>    read coor unit 1 card
+          SPATIAL COORDINATES BEING READ FROM UNIT  1
+ TITLE> * BUILD WATERS AROUND PROTEIN
+ TITLE> *  DATE:     8/29/16     18:46:37      CREATED BY USER: NOEL
+ TITLE> *
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    bomb -1
+  
+ CHARMM>    !open write unit 69 form name GBSW_AB.dat
+ CHARMM>     
+  
+ CHARMM>    ! Inter Chain Energy (A,B)
+ CHARMM>    ! ==============================
+ CHARMM>     
+  
+ CHARMM>    stream "/home/noel/Projects/Protein_design/Parameters/radii_prot_na_dfg.str"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Parameters/radii_prot_na_dfg.str::
+ OPNLGU> Unit 99 opened for READONLY access to /home/noel/Projects/Protein_design/Parameters/radii_prot_na_dfg.str
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL>  
+ RDTITL> No title read.
+ Parameter: IN1 <- "" <empty>
+  
+ CHARMM>     
+  
+ CHARMM>    ! Radii for protein atoms in 20 standard amino acids
+ CHARMM>    ! Authors:  Mafalda Nina, Dmitrii Belogv, and Benoit Roux
+ CHARMM>    ! University of Montreal, June 1996.
+ CHARMM>    ! M. Nina and B. Roux. "Atomic Radii for Continuum Electrostatics
+ CHARMM>    ! Calculations Based on Molecular Dynamics Free Energy Simulations",
+ CHARMM>    ! J. Phys. Chem. B 101: 5239-5248 (1997).
+ CHARMM>     
+  
+ CHARMM>    ! Radii for nucleic acid atoms (RNA and DNA)
+ CHARMM>    ! Authors:  Nilesh Banavali and Benoit Roux
+ CHARMM>    ! Cornell University, June 2002.
+ CHARMM>    ! N.K. Banavali and B. Roux, "Atomic Radii for Continuum Electrostatics
+ CHARMM>    ! Calculations on Nucleic Acids", J. Phys.  Chem. B 106:11026-11035 (2002).
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    ! UPDATES:
+ CHARMM>    ! --------
+ CHARMM>    !
+ CHARMM>    ! December 1998:  GLU and ASP modified by Mafalda Nina.
+ CHARMM>    ! January  1999:  Protonated histidine HSP has been included by Mafalda Nina,
+ CHARMM>    !                 dG_elec = -68.15 kcal/mol (MD/FES) or -68.10 kcal/mol (PBEQ).
+ CHARMM>    ! January  1999:  TEA and ions added by Benoit Roux.
+ CHARMM>    ! November 2000:  Na+ added by Benoit Roux.
+ CHARMM>    ! June     2001:  All nucleic acid atoms added by Nilesh Banavali.
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    ! Set to zero all H radii
+ CHARMM>    scalar wmain set 0.0 sele chem H* end
+ SELRPN>   7849 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! Set heavy atoms to average default values
+ CHARMM>    !scalar wmain set 2.3 sele chem C* end
+ CHARMM>    !scalar wmain set 1.8 sele chem O* end
+ CHARMM>    !scalar wmain set 2.3 sele chem N* end
+ CHARMM>    !scalar wmain set 2.3 sele chem S* end
+ CHARMM>     
+  
+ CHARMM>    !Patches CT3 N-Methylamide C-terminus
+ CHARMM>    !        ACE acetylated N-terminus (ACP for PRO)
+ CHARMM>    scalar wmain set 2.06 sele (type CAY .or. type CAT) end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 2.04 sele type CY end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 1.52 sele type OY end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 2.23 sele type NT end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 1.40 sele type OT* end ! for COO- terminus
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    !Backbone
+ CHARMM>    scalar wmain set 2.04 sele type C  end
+ SELRPN>     51 atoms have been selected out of  11988
+  
+ CHARMM>           ! for peptide bond
+  
+ CHARMM>    scalar wmain set 1.52 sele type O  end
+ SELRPN>     51 atoms have been selected out of  11988
+  
+ CHARMM>           ! for peptide bond
+  
+ CHARMM>    scalar wmain set 2.23 sele type N  end
+ SELRPN>     51 atoms have been selected out of  11988
+  
+ CHARMM>           ! for peptide bond
+  
+ CHARMM>    scalar wmain set 2.86 sele type CA  end
+ SELRPN>     51 atoms have been selected out of  11988
+  
+ CHARMM>           ! for all CA except GLY
+  
+ CHARMM>    scalar wmain set 2.38 sele (resnam GLY .and. type CA) end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for GLY only
+  
+ CHARMM>     
+  
+ CHARMM>    !Hydrogens
+ CHARMM>    scalar wmain set 0.00 sele type H* end
+ SELRPN>   7849 atoms have been selected out of  11988
+  
+ CHARMM>           ! for all hydrogens
+  
+ CHARMM>     
+  
+ CHARMM>    !Carbons
+ CHARMM>    scalar wmain set 2.67 sele type CB end
+ SELRPN>     47 atoms have been selected out of  11988
+  
+ CHARMM>           ! for all residues
+  
+ CHARMM>    scalar wmain set 2.46 sele type CG* end
+ SELRPN>     43 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ARG, GLN, ILE, LYS, MET, PHE, THR, TRP, VAL, HSP, HSD, HSE
+  
+ CHARMM>    scalar wmain set 2.77 sele resnam GLU .and. type CG end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for GLU only
+  
+ CHARMM>    scalar wmain set 2.44 sele type CD* end
+ SELRPN>     40 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ARG, ILE, LEU, LYS
+  
+ CHARMM>    scalar wmain set 1.98 sele (resnam GLN .and. type CD) .or. (resnam ASN .and. type CG) .or. -
+ CHARMM>                               (resnam GLU .and. type CD) .or. (resnam ASP .and. type CG) end
+ SELRPN>     10 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ASP, GLU, ASN, GLN
+  
+ CHARMM>    scalar wmain set 1.98 sele (resnam PRO .and. (type CB .or. type CG .or. type CD)) end
+ SELRPN>      3 atoms have been selected out of  11988
+  
+ CHARMM>           ! for PRO only
+  
+ CHARMM>    scalar wmain set 2.00 sele (resnam TYR .and. (type CE* .or. type CD* .or. -
+ CHARMM>                              type CZ)) .or. (resnam PHE .and. (type CE* .or. -
+ CHARMM>                              type CD* .or. type CZ))  end
+ SELRPN>     35 atoms have been selected out of  11988
+  
+ CHARMM>           ! for TYR, PHE rings
+  
+ CHARMM>    scalar wmain set 1.78 sele (resnam TRP .and. (type CE* .or. type CD* .or. -
+ CHARMM>                              type CZ* .or. type CH2)) end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           ! for TRP ring only
+  
+ CHARMM>    scalar wmain set 2.10 sele type CE end
+ SELRPN>      1 atoms have been selected out of  11988
+  
+ CHARMM>           ! for MET only
+  
+ CHARMM>    scalar wmain set 2.80 sele (resnam ARG .and. type CZ) .or. (resnam LYS .and. type CE) end
+ SELRPN>      2 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ARG, LYS
+  
+ CHARMM>    scalar wmain set 1.98 select (( resnam HSD  .or. resnam HSE  .or. resnam HSP) -
+ CHARMM>       .and. (type CE1 .or. type CD2) ) end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for neutral HSD, HSE and protonated HSP
+  
+ CHARMM>     
+  
+ CHARMM>    !Oxygens
+ CHARMM>    scalar wmain set 1.40 sele (resnam GLU .or. resnam ASP) .and. (type OE* .or. type OD*) end
+ SELRPN>      8 atoms have been selected out of  11988
+  
+ CHARMM>           ! for GLU, ASP
+  
+ CHARMM>    scalar wmain set 1.42 sele (resnam ASN .or. resnam GLN) .and. (type OE* .or. type OD*) end
+ SELRPN>      6 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ASN, GLN
+  
+ CHARMM>    scalar wmain set 1.64 sele type OG* end
+ SELRPN>      6 atoms have been selected out of  11988
+  
+ CHARMM>           ! for SER, THR
+  
+ CHARMM>    scalar wmain set 1.85 sele (resnam TYR .and. type OH) end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for TYR only
+  
+ CHARMM>    scalar wmain set 2.2 select resname TIP3 .and. type OH2 end
+ SELRPN>   3736 atoms have been selected out of  11988
+  
+ CHARMM>           ! for explicit water molecules
+  
+ CHARMM>     
+  
+ CHARMM>    !Nitrogens
+ CHARMM>    scalar wmain set 1.80 sele (resnam HSD .or. resn HSE) .and. (type NE2 .or. type ND1) end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for neutral HSD or HSE
+  
+ CHARMM>    scalar wmain set 2.30 sele resnam HSP  .and. (type NE2 .or. type ND1) end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           ! for protonated HSP
+  
+ CHARMM>    scalar wmain set 2.13 sele resnam ARG .and. (type NH* .or. type NE) .or. -
+ CHARMM>                          (resnam LYS .and. type NZ) end
+ SELRPN>      4 atoms have been selected out of  11988
+  
+ CHARMM>           ! for ARG, LYS
+  
+ CHARMM>    scalar wmain set 2.15 sele (resnam GLN .and. type NE2) .or. (resnam ASN .and. type ND2) end
+ SELRPN>      6 atoms have been selected out of  11988
+  
+ CHARMM>           ! for GLN, ASN
+  
+ CHARMM>    scalar wmain set 2.40 sele resnam TRP .and. type NE1 end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           ! for TRP
+  
+ CHARMM>     
+  
+ CHARMM>    !Sulphur
+ CHARMM>    scalar wmain set 2.00 sele type S* end
+ SELRPN>      6 atoms have been selected out of  11988
+  
+ CHARMM>           ! for MET, CYS
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !Ions
+ CHARMM>    scalar wmain set 2.035 select resname POT end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           !potassium ion K+
+  
+ CHARMM>     
+  
+ CHARMM>    scalar wmain set 2.035 select resname CLA end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           !chloride ion Cl-
+  
+ CHARMM>     
+  
+ CHARMM>    scalar wmain set 1.66 select resname SOD end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           !sodium ion Na+
+  
+ CHARMM>     
+  
+ CHARMM>    scalar wmain set 1.48 select resname MG end    ! Born equation, dA = -441.65 DFG 7/15/2008
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 1.70 select resname CAL end   ! Born equation, dA = -384.8  DFG 7/15/2008
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    scalar wmain set 2.15 sele resnam TEA .and. type N end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 2.30 sele ( type C1 .or. type C2 .or. type C3 .or. type C4 ) .and. resnam TEA end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    scalar wmain set 2.30 sele ( type C5 .or. type C6 .or. type C7 .or. type C8 ) .and. resnam TEA end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>           ! Tetramethylamonium (TEA)
+  
+ CHARMM>     
+  
+ CHARMM>    !...................................................................................................
+ CHARMM>    ! Nucleic acid atomic radii for PB calculations (N. Banavali)
+ CHARMM>     
+  
+ CHARMM>    set factor = 1
+ Parameter: FACTOR <- "1"
+  
+ CHARMM>     
+  
+ CHARMM>    ! Set all H radii to 0.0
+ CHARMM>    calc radius = 0.0*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 0.0*1
+ Parameter: RADIUS <- "0"
+  
+ CHARMM>    scalar wmain set @radius sele chem H* end
+ Parameter: RADIUS -> "0"
+ SELRPN>   7849 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! purine base atoms
+ CHARMM>    calc radius = 1.75*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.75*1
+ Parameter: RADIUS <- "1.75"
+  
+ CHARMM>    scalar wmain set @radius sele (resn ade .or. resn adp .or. resn atp) .and. type n1 end
+ Parameter: RADIUS -> "1.75"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.17*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.17*1
+ Parameter: RADIUS <- "2.17"
+  
+ CHARMM>    scalar wmain set @radius sele (resn ade .or. resn adp .or. resn atp) .and. type n6 end
+ Parameter: RADIUS -> "2.17"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.15*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.15*1
+ Parameter: RADIUS <- "2.15"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp) .and. type n1 end
+ Parameter: RADIUS -> "2.15"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.12*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.12*1
+ Parameter: RADIUS <- "2.12"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp) .and. type n2 end
+ Parameter: RADIUS -> "2.12"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.55*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.55*1
+ Parameter: RADIUS <- "1.55"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp) .and. type o6 end
+ Parameter: RADIUS -> "1.55"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.15*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.15*1
+ Parameter: RADIUS <- "2.15"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp .or. -
+ CHARMM>       resn ade .or. resn adp .or. resn atp) .and. type c2 end
+ Parameter: RADIUS -> "2.15"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 1.69*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.69*1
+ Parameter: RADIUS <- "1.69"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp .or. -
+ CHARMM>       resn ade .or. resn adp .or. resn atp) .and. (type n3 .or. type n7) end
+ Parameter: RADIUS -> "1.69"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.12*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.12*1
+ Parameter: RADIUS <- "2.12"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp .or. -
+ CHARMM>       resn ade .or. resn adp .or. resn atp) .and. (type c4 .or. type c5 .or. -
+ CHARMM>       type c6 .or. type c8) end
+ Parameter: RADIUS -> "2.12"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.13*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.13*1
+ Parameter: RADIUS <- "2.13"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp .or. -
+ CHARMM>       resn ade .or. resn adp .or. resn atp) .and. (type n9) end
+ Parameter: RADIUS -> "2.13"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn gdp .or. resn gtp .or. -
+ CHARMM>       resn ade .or. resn adp .or. resn atp) .and. (type c9) end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    ! pyrimidine base atoms
+ CHARMM>    calc radius = 2.20*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.20*1
+ Parameter: RADIUS <- "2.2"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type n1 end
+ Parameter: RADIUS -> "2.2"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.04*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.04*1
+ Parameter: RADIUS <- "2.04"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type c2 end
+ Parameter: RADIUS -> "2.04"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.68*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.68*1
+ Parameter: RADIUS <- "1.68"
+  
+ CHARMM>    scalar wmain set @radius sele resn cyt .and. type n3 end
+ Parameter: RADIUS -> "1.68"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.20*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.20*1
+ Parameter: RADIUS <- "2.2"
+  
+ CHARMM>    scalar wmain set @radius sele (resn thy .or. resn ura) .and. type n3 end
+ Parameter: RADIUS -> "2.2"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.12*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.12*1
+ Parameter: RADIUS <- "2.12"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type c4 end
+ Parameter: RADIUS -> "2.12"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.25*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.25*1
+ Parameter: RADIUS <- "2.25"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type c5 end
+ Parameter: RADIUS -> "2.25"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.25*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.25*1
+ Parameter: RADIUS <- "2.25"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type c6 end
+ Parameter: RADIUS -> "2.25"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.60*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.60*1
+ Parameter: RADIUS <- "1.6"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type o2 end
+ Parameter: RADIUS -> "1.6"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.08*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.08*1
+ Parameter: RADIUS <- "2.08"
+  
+ CHARMM>    scalar wmain set @radius sele resn cyt .and. type n4 end
+ Parameter: RADIUS -> "2.08"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.60*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.60*1
+ Parameter: RADIUS <- "1.6"
+  
+ CHARMM>    scalar wmain set @radius sele (resn thy .or. resn ura) .and. type o4 end
+ Parameter: RADIUS -> "1.6"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele resn thy .and. type c5m end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele (resn cyt .or. resn thy .or. resn ura) .and. type c1 end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! sugar atoms
+ CHARMM>    calc radius = 2.57*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.57*1
+ Parameter: RADIUS <- "2.57"
+  
+ CHARMM>    scalar wmain set @radius sele type c1' end
+ Parameter: RADIUS -> "2.57"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.70*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.70*1
+ Parameter: RADIUS <- "2.7"
+  
+ CHARMM>    scalar wmain set @radius sele type c2' end
+ Parameter: RADIUS -> "2.7"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.73*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.73*1
+ Parameter: RADIUS <- "2.73"
+  
+ CHARMM>    scalar wmain set @radius sele type c3' end
+ Parameter: RADIUS -> "2.73"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.50*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.50*1
+ Parameter: RADIUS <- "2.5"
+  
+ CHARMM>    scalar wmain set @radius sele type c4' end
+ Parameter: RADIUS -> "2.5"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.55*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.55*1
+ Parameter: RADIUS <- "1.55"
+  
+ CHARMM>    scalar wmain set @radius sele type o4' end
+ Parameter: RADIUS -> "1.55"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.57*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.57*1
+ Parameter: RADIUS <- "2.57"
+  
+ CHARMM>    scalar wmain set @radius sele type c5' end
+ Parameter: RADIUS -> "2.57"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele type o3' end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele type o5' end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.75*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.75*1
+ Parameter: RADIUS <- "1.75"
+  
+ CHARMM>    scalar wmain set @radius sele type o2' end
+ Parameter: RADIUS -> "1.75"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! add radii for blocking group hydroxyl oxygens
+ CHARMM>    define oter  sele (type o3' .or. type o5') .and. .bonded. (type h3t .or. type h5t) end
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.72*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.72*1
+ Parameter: RADIUS <- "1.72"
+  
+ CHARMM>    scalar wmain set @radius sele oter end
+ Parameter: RADIUS -> "1.72"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! atoms for sugar2phos
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type o5t end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type c5t end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.35*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.35*1
+ Parameter: RADIUS <- "2.35"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type p3 end
+ Parameter: RADIUS -> "2.35"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>       .or. resn thy .or. resn ura) .and. (type o1p3 .or. type o2p3) end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type o3t end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type c3t end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! phosphate atoms
+ CHARMM>    calc radius = 2.35*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.35*1
+ Parameter: RADIUS <- "2.35"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type p end
+ Parameter: RADIUS -> "2.35"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type o1p end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele (resn gua .or. resn ade .or. resn cyt -
+ CHARMM>                        .or. resn thy .or. resn ura) .and. type o2p end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! dmpa phosphate atoms, from above radii
+ CHARMM>    calc radius = 2.35*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.35*1
+ Parameter: RADIUS <- "2.35"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type p1 end
+ Parameter: RADIUS -> "2.35"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type o1 end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.65*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.65*1
+ Parameter: RADIUS <- "1.65"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type o2 end
+ Parameter: RADIUS -> "1.65"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type o3 end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type o4 end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type c1 end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 2.30*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.30*1
+ Parameter: RADIUS <- "2.3"
+  
+ CHARMM>    scalar wmain set @radius sele resn dmpa .and. type c2 end
+ Parameter: RADIUS -> "2.3"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! phosphate atoms in ADP, ATP, GDP, or GTP
+ CHARMM>    calc radius = 2.35*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.35*1
+ Parameter: RADIUS <- "2.35"
+  
+ CHARMM>    scalar wmain set @radius sele type pa .or. type pb .or. type pg end
+ Parameter: RADIUS -> "2.35"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    ! Use radius 1.65 for protonated oxygens, 1.49 for unprotonated
+ CHARMM>    !calc radius = 1.65*@factor
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele -
+ CHARMM>       ( (resn atp .or. resn gtp ) .and. ( type o3a .or. type o3b)) .or. -
+ CHARMM>       ( (resn adp .or. resn gdp ) .and. ( type o3a)) -
+ CHARMM>       end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele -
+ CHARMM>       type o1a .or. type o2a .or. -
+ CHARMM>       type o1b .or. type o2b .or. ( (resn adp .or. resn gdp) .and. type o3b) .or. -
+ CHARMM>       type o1g .or. type o2g .or. type o3g -
+ CHARMM>    end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    ! phosphate atoms in phosphotyrosine
+ CHARMM>    calc radius = 2.35*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 2.35*1
+ Parameter: RADIUS <- "2.35"
+  
+ CHARMM>    scalar wmain set @radius sele (resn tyr .and. type p1) end
+ Parameter: RADIUS -> "2.35"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>    calc radius = 1.49*@factor
+ Parameter: FACTOR -> "1"
+Evaluating: 1.49*1
+ Parameter: RADIUS <- "1.49"
+  
+ CHARMM>    scalar wmain set @radius sele (resn tyr .and. (type o2 .or. type o3 .or. type o4)) end
+ Parameter: RADIUS -> "1.49"
+ SELRPN>      0 atoms have been selected out of  11988
+  
+ CHARMM>     
+  
+ CHARMM>    return
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+  
+ CHARMM>     
+  
+ CHARMM>    ! For two atoms only
+ CHARMM>    !delete atom sele .not. ((resid 2701 .and. type OH2 .and. segid WAT) .or. (resid 2172 .and. type OH2 .and. segid WAT)) end
+ CHARMM>    ! For Two molecules of water
+ CHARMM>    delete atom sele .not. ((resid 2701 .and.  segid WAT) .or. (resid 2172 .and. segid WAT)) end
+ SELRPN>  11982 atoms have been selected out of  11988
+
+ Message from MAPIC: Atom numbers are changed.
+
+ Message from MAPIC:       3785 residues deleted.
+
+ Message from MAPIC:          2 segments deleted.
+ DELTIC:     11993 bonds deleted
+ DELTIC:      5142 angles deleted
+ DELTIC:      2057 dihedrals deleted
+ DELTIC:       139 improper dihedrals deleted
+ DELTIC:        47 crossterm maps deleted
+ DELTIC:        82 donors deleted
+ DELTIC:      3811 acceptors deleted
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =        2
+         Number of atoms         =        6   Number of groups     =        2
+         Number of bonds         =        6   Number of angles     =        2
+         Number of dihedrals     =        0   Number of impropers  =        0
+         Number of cross-terms   =        0
+         Number of HB acceptors  =        2   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =    0.00000
+  
+ CHARMM>     
+  
+ CHARMM>    open write unit 1 card name two_wat.crd
+ VOPEN> Attempting to open::two_wat.crd::
+ OPNLGU> Unit  1 opened for WRITE access to two_wat.crd
+  
+ CHARMM>    write coor card unit 1
+ RDTITL>  
+ RDTITL> No title read.
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    write psf card name two_wat.psf
+ VOPEN> Attempting to open::two_wat.psf::
+ RDTITL>  
+ RDTITL> No title read.
+ VCLOSE: Closing unit   90 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    write psf card xplo name two_wat_xplo.psf
+ VOPEN> Attempting to open::two_wat_xplo.psf::
+ RDTITL>  
+ RDTITL> No title read.
+ VCLOSE: Closing unit   90 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    nbond -
+ CHARMM>    inbfrq 1 ctonnb 960.0 ctofnb 980.0 cutnb 900.0 wmin 1.5  -
+ CHARMM>    elec atom switch cdiel eps 1.0 vdw vatom vswitch -
+ CHARMM>    e14fac 1.0 nbxmod 5
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SWITch   VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  =900.000 CTEXNB =999.000 CTONNB =960.000 CTOFNB =980.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ GTNBCT> CUTNB,CTOFNB,CTONNB=     900.0     980.0     960.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV ( -1) IS NOT REACHED. WRNLEV IS  5
+
+ <MAKINB> with mode   5 found      6 exclusions and      0 interactions(1-4)
+ <MAKGRP> found      0 group exclusions.
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       13 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        9 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+  
+ CHARMM>     
+  
+ CHARMM>    energy
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SWITch   VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  =900.000 CTEXNB =999.000 CTONNB =960.000 CTOFNB =980.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are        9 atom  pairs and        6 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ GTNBCT> CUTNB,CTOFNB,CTONNB=     900.0     980.0     960.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV ( -1) IS NOT REACHED. WRNLEV IS  5
+
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       13 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        9 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ENER ENR:  Eval#     ENERgy      Delta-E         GRMS
+ENER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+ENER>        0     28.20352      0.00000     51.97665
+ENER EXTERN>       25.91682      2.28670      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+  
+ CHARMM>     
+  
+ CHARMM>    coor force sele all end
+ SELRPN>      6 atoms have been selected out of      6
+ SELECTED FORCES COPIED TO THE MAIN SET.
+
+  
+ CHARMM>    print coor sele all end
+ SELRPN>      6 atoms have been selected out of      6
+
+          COORDINATE FILE MODULE
+ TITLE>  * NONE *
+ TITLE>  *  DATE:     1/12/17     12:49: 2      CREATED BY USER: noel
+ TITLE>  *
+    6
+    1    1 TIP3 OH2 -126.65564 -45.37471  94.38930 WAT  2172   2.20000
+    2    1 TIP3 H1     3.50931  -3.76788  -3.84990 WAT  2172   0.00000
+    3    1 TIP3 H2    11.65112  -6.92971  -1.28434 WAT  2172   0.00000
+    4    2 TIP3 OH2  103.14963  56.09669 -86.85922 WAT  2701   2.20000
+    5    2 TIP3 H1     1.57826  -1.77955   0.04244 WAT  2701   0.00000
+    6    2 TIP3 H2     6.76732   1.75516  -2.43827 WAT  2701   0.00000
+  
+ CHARMM>     
+  
+ CHARMM>    stop
+$$$$$$  New timer profile $$$$$
+         Electrostatic & VDW     0.00000 Other:    0.00000
+      Nonbond force           0.00001 Other:    0.00001
+         Bond energy             0.00000 Other:    0.00000
+         Angle energy            0.00001 Other:    0.00000
+         Dihedral energy         0.00000 Other:    0.00000
+      INTRNL energy           0.00045 Other:    0.00044
+   Energy time             0.00047 Other:    0.00001
+ Total time              0.54818 Other:    0.54771
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    MAXIMUM STACK SPACE USED IS  143856
+                    STACK CURRENTLY IN USE IS         0
+                    MOST SEVERE WARNING WAS AT LEVEL  1
+                    HEAP PRINTOUT-  HEAP SIZE 100000000
+                    SPACE CURRENTLY IN USE IS     27648
+                    MAXIMUM SPACE USED IS        124092
+                    FREE LIST
+            PRINHP> ADDRESS:         1 LENGTH:  99971812 NEXT:  99999461
+            PRINHP> ADDRESS:  99999461 LENGTH:       540 NEXT:         0
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:     0.55  SECONDS 
+                         CPU TIME:     0.00  SECONDS 

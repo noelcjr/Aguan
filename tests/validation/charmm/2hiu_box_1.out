@@ -1,0 +1,75 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+                   (CHARMM) - Developmental Version 32b1     August 15, 2005   
+       Copyright(c) 1984-2001  President and Fellows of Harvard College
+                              All Rights Reserved
+      Current operating system: Linux-4.2.0-42-generic(x86_64)@noel-leno
+                 Created on 12/25/16 at 19:39:18 by user: noel        
+
+            Maximum number of ATOMS:    360720, and RESidues:       90180
+            Current HEAP size:       100000000, and STACK size:  10000000
+
+ RDTITL>  
+ RDTITL> No title read.
+
+      ***** LEVEL  1 WARNING FROM <RDTITL> *****
+      ***** Title expected.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name "/home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf::
+ OPNLGU> Unit  1 opened for READONLY access to /home/noel/Projects/Protein_design/Parameters/top_all27_prot_na.rtf
+  
+ CHARMM>    read rtf card unit 1
+ MAINIO> Residue topology file being read from unit   1.
+ TITLE> *>>>>>>>>CHARMM22 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>   JULY, 2004    <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 2 card name "/home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm"
+ VOPEN> Attempting to open::/home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm::
+ OPNLGU> Unit  2 opened for READONLY access to /home/noel/Projects/Protein_design/Parameters/par_all27_prot_na.prm
+  
+ CHARMM>    read para card unit 2
+
+          PARAMETER FILE BEING READ FROM UNIT  2
+ TITLE> *>>>>> CHARMM22 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>> DECEMBER, 2003 <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+  
+ CHARMM>    close unit 2
+ VCLOSE: Closing unit    2 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    ! Read in structure files
+ CHARMM>    ! =======================
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name "/home/noel/Projects/FixMD/Aguan/tests/validation/charmm/two_wat.psf"
+ VOPEN> Attempting to open::/home/noel/Projects/FixMD/Aguan/tests/validation/charmm/two_wat.psf::
+ OPNLGU> Unit  1 opened for READONLY access to /home/noel/Projects/FixMD/Aguan/tests/validation/charmm/two_wat.psf
+  
+ CHARMM>    read psf unit 1 card
+ MAINIO> Protein structure file being read from unit   1.
+ TITLE>  * NONE *
+ TITLE>  *  DATE:    12/25/16      0:43:45      CREATED BY USER: noel
+ TITLE>  *

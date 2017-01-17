@@ -1,0 +1,66 @@
+Angular Velocity Validation
+July 3rd, 2016
+
+Purpose:
+    To check that angular velocities do not alter translational velocities and trajectories
+and viceversa.  
+
+Test:
+    In this test, an 8 water molecule simulation is set up by manually
+modifying the a randomly generated RST file. In the RST file, each molecule has 
+different initial X, Y and Z rotational angular velocities. Angular velocities 
+of 1 radian per femtosecond is given to each possible XYZ axis combination in 
+the following way:.  
+
+ANGVELS n= 8 x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)
+0 0.0 0.0 0.0
+1 0.0 0.0 279.2526803190927
+2 0.0 279.2526803190927 0.0
+3 0.0 279.2526803190927 279.2526803190927
+4 279.2526803190927 0.0 0.0
+5 279.2526803190927 0.0 279.2526803190927
+6 279.2526803190927 279.2526803190927 0.0
+7 279.2526803190927 279.2526803190927 279.2526803190927
+
+Angular velocity = (2*np.pi/36)/0.000625 = 279.2526803190927 radians per reduced unit of
+time, whic is equivalent to a femto-second. This is equivalent to 10 degrees per step.
+
+Translationa velocities are given the following values:
+ n= 8 x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)
+0 0.0 0.0 100.0
+1 0.0 0.0 100.0
+2 0.0 0.0 100.0
+3 0.0 0.0 100.0
+4 0.0 0.0 100.0
+5 0.0 0.0 100.0
+6 0.0 0.0 100.0
+7 0.0 0.0 100.0
+
+Angular velocities are in reduced units in the restart file. They are not converted
+because the measure of their magnitud is translated into a temperature which gives more
+meaning.
+
+After one step, Molecule 0 in the simulation moved from 0.993nm to 1.023nm in one step. This
+is expexted from the integrator in which:
+          r(t+1) = r(t) + dt * v(t)
+dt * v(t) = 0.000625 * 100 = 0.0625 ro = 0.020 nm
+
+From the trajectory, it can be seen that molecule 0 moves in the z-axis direction from 
+0.993nm to 1.013nm. 
+
+This test is simple and the result seems obvious to expect. However, when a future test is
+perform with an applied electric field, we will see how rotetional and translational degrees
+of freedom change.
+
+##################################################################################################
+                          VALIDATION                                                             #
+It can be seen that from the vizualization of the trajectories perform a full rotation for the water    #
+molecules at the expected number of steps and that translation and rotation degrees of freedom do not
+change interfere with each other trajectories in the rotational and tranlation motions. 
+This validates this part of the program.              #
+##################################################################################################
+
+NOTE:If the molecules are visualized using VMD, make sure to load the CRD after the PSF file, and follow
+that with the DCD file. When loading the CRD, make sure that the file type that tells VMD the forlmat of
+the file is the one corresponding to "CHARMM coordinates". This is because the suffix CRD is used
+by another program with a different format. 
