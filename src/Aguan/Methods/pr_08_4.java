@@ -66,7 +66,7 @@ public class pr_08_4{ //extends MD{ In this case we do not want to extend MD for
         DefineMol(TM);
     }
     public void SetParams(){
-        TM.sitesMol  = 4;
+        TM.sitesMol[0]  = 4;
         TM.regionX = (1/Math.pow(TM.density,(1/3)))*TM.initUcellX; //VSCopy(v2, s1, v1) = (v2).x = (s1) * (v1).x
         TM.regionY = (1/Math.pow(TM.density,(1/3)))*TM.initUcellY;
         TM.regionZ = (1/Math.pow(TM.density,(1/3)))*TM.initUcellZ;
@@ -169,31 +169,31 @@ public class pr_08_4{ //extends MD{ In this case we do not want to extend MD for
         for(int n = 0; n < TM.nMol; n++){
             TM.rax[n] = TM.ray[n] = TM.raz[n] = 0.0;
             torqSx = torqSy = torqSz = 0.0;
-            for(int j = 0; j < TM.sitesMol; j++){
-                  TM.rax[n] = TM.rax[n] + TM.fxs[n*TM.sitesMol + j];     // Right assumption?  Translational accelerations are summed,
-                  TM.ray[n] = TM.ray[n] + TM.fys[n*TM.sitesMol + j];     // Rotational accelerations are then obtained from this
-                  TM.raz[n] = TM.raz[n] + TM.fzs[n*TM.sitesMol + j];     // translational accelerations. Shouldn't accelerations
-                  drx = TM.rxs[n*TM.sitesMol + j] - TM.rx[n];            // be distributed between tranlation and rotation? Instead,
-                  dry = TM.rys[n*TM.sitesMol + j] - TM.ry[n];            // what seems to occur is that all the accelerations are added
-                  drz = TM.rzs[n*TM.sitesMol + j] - TM.rz[n];            // to translation and then a fraction of those are used for rotational
-                  tx = dry*TM.fzs[n*TM.sitesMol + j] - drz*TM.fys[n*TM.sitesMol + j];          // accelerations. There seems to be a double count.
-                  ty = drz*TM.fxs[n*TM.sitesMol + j] - drx*TM.fzs[n*TM.sitesMol + j];          // some of the acceleration that goes to rotation
-                  tz = drx*TM.fys[n*TM.sitesMol + j] - dry*TM.fxs[n*TM.sitesMol + j];          // is already going to translation. Also, the rotational
+            for(int j = 0; j < TM.sitesMol[0]; j++){
+                  TM.rax[n] = TM.rax[n] + TM.fxs[n*TM.sitesMol[0] + j];     // Right assumption?  Translational accelerations are summed,
+                  TM.ray[n] = TM.ray[n] + TM.fys[n*TM.sitesMol[0] + j];     // Rotational accelerations are then obtained from this
+                  TM.raz[n] = TM.raz[n] + TM.fzs[n*TM.sitesMol[0] + j];     // translational accelerations. Shouldn't accelerations
+                  drx = TM.rxs[n*TM.sitesMol[0] + j] - TM.rx[n];            // be distributed between tranlation and rotation? Instead,
+                  dry = TM.rys[n*TM.sitesMol[0] + j] - TM.ry[n];            // what seems to occur is that all the accelerations are added
+                  drz = TM.rzs[n*TM.sitesMol[0] + j] - TM.rz[n];            // to translation and then a fraction of those are used for rotational
+                  tx = dry*TM.fzs[n*TM.sitesMol[0] + j] - drz*TM.fys[n*TM.sitesMol[0] + j];          // accelerations. There seems to be a double count.
+                  ty = drz*TM.fxs[n*TM.sitesMol[0] + j] - drx*TM.fzs[n*TM.sitesMol[0] + j];          // some of the acceleration that goes to rotation
+                  tz = drx*TM.fys[n*TM.sitesMol[0] + j] - dry*TM.fxs[n*TM.sitesMol[0] + j];          // is already going to translation. Also, the rotational
                   torqSx =  torqSx + tx;     torqSy =  torqSy + ty;     torqSz =  torqSz + tz; // inertia tensor is calculated based on masses only
             }                                                                                  // not charges. is this right?  could this be fixed?
             waBx = TM.rMatT[(n*9)+0]*torqSx + TM.rMatT[(n*9)+1]*torqSy + TM.rMatT[(n*9)+2]*torqSz;
             waBy = TM.rMatT[(n*9)+3]*torqSx + TM.rMatT[(n*9)+4]*torqSy + TM.rMatT[(n*9)+5]*torqSz;
             waBz = TM.rMatT[(n*9)+6]*torqSx + TM.rMatT[(n*9)+7]*torqSy + TM.rMatT[(n*9)+8]*torqSz;
-            waBx /= TM.mInertX;
-            waBy /= TM.mInertY;
-            waBz /= TM.mInertZ;
+            waBx /= TM.mInertX[0];
+            waBy /= TM.mInertY[0];
+            waBz /= TM.mInertZ[0];
             TM.wax[n] = TM.rMatT[(n*9)+0]*waBx + TM.rMatT[(n*9)+3]*waBy + TM.rMatT[(n*9)+6]*waBz;
             TM.way[n] = TM.rMatT[(n*9)+1]*waBx + TM.rMatT[(n*9)+4]*waBy + TM.rMatT[(n*9)+7]*waBz;
             TM.waz[n] = TM.rMatT[(n*9)+2]*waBx + TM.rMatT[(n*9)+5]*waBy + TM.rMatT[(n*9)+8]*waBz;
         }
     }
     public void DefineMol(TheMatrix TM){
-       for(int j = 0; j < TM.sitesMol; j++){
+       for(int j = 0; j < TM.sitesMol[0]; j++){
           TM.rmx[j] = 0;   TM.rmy[j] = 0;  TM.rmz[0] = 0;
        }
        TM.rmz[0] =-0.0206;
@@ -202,10 +202,10 @@ public class pr_08_4{ //extends MD{ In this case we do not want to extend MD for
        TM.rmz[2] = 0.165;
        TM.rmy[3] = -0.240;   
        TM.rmz[3] = 0.165;
-       TM.mInertX = 0.00980;
-       TM.mInertY = 0.00340;
-       TM.mInertZ = 0.00640;
-       TM.bCon = 183.5;
+       TM.mInertX[0] = 0.00980;
+       TM.mInertY[0] = 0.00340;
+       TM.mInertZ[0] = 0.00640;
+       TM.bCon[0] = 183.5;
        TM.typeF[0] = 1;   
        TM.typeF[1] = 2;    
        TM.typeF[2] = 3;    
@@ -241,9 +241,9 @@ public class pr_08_4{ //extends MD{ In this case we do not want to extend MD for
         waBy = (TM.rMatT[(n*9)+3]*TM.wax[n])+(TM.rMatT[(n*9)+4]*TM.way[n])+(TM.rMatT[(n*9)+5]*TM.waz[n]);
         waBz = (TM.rMatT[(n*9)+6]*TM.wax[n])+(TM.rMatT[(n*9)+7]*TM.way[n])+(TM.rMatT[(n*9)+8]*TM.waz[n]); 
         //s1 += VWDot (mInert, wvB, waB);
-        s1 += (TM.mInertX*wvBx*waBx)+(TM.mInertY*wvBy*waBy)+(TM.mInertZ*wvBz*waBz);
+        s1 += (TM.mInertX[0]*wvBx*waBx)+(TM.mInertY[0]*wvBy*waBy)+(TM.mInertZ[0]*wvBz*waBz);
         //s2 += VWLenSq (mInert, wvB);
-        s2 += (TM.mInertX*wvBx*wvBx)+(TM.mInertY*wvBy*wvBy)+(TM.mInertZ*wvBz*wvBz);
+        s2 += (TM.mInertX[0]*wvBx*wvBx)+(TM.mInertY[0]*wvBy*wvBy)+(TM.mInertZ[0]*wvBz*wvBz);
         } //}
         vFac = -s1 / s2;     //vFac = - s1 / s2;
         for(n = 0; n <TM.nMol; n++){  // DO_MOL {
@@ -289,7 +289,7 @@ public class pr_08_4{ //extends MD{ In this case we do not want to extend MD for
             wvBy = TM.rMatT[(n*9)+3]*TM.wvx[n] + TM.rMatT[(n*9)+4]*TM.wvy[n] + TM.rMatT[(n*9)+5]*TM.wvz[n];
             wvBz = TM.rMatT[(n*9)+6]*TM.wvx[n] + TM.rMatT[(n*9)+7]*TM.wvy[n] + TM.rMatT[(n*9)+8]*TM.wvz[n];
             // vvSum += VWLenSq (mInert, wvB);
-            TM.vvSum += TM.mInertX*wvBx*wvBx + TM.mInertY*wvBy*wvBy + TM.mInertZ*wvBz*wvBz;
+            TM.vvSum += TM.mInertX[0]*wvBx*wvBx + TM.mInertY[0]*wvBy*wvBy + TM.mInertZ[0]*wvBz*wvBz;
         }
         vFac = TM.velMag/Math.sqrt(TM.vvSum/TM.nMol);
         for(n = 0; n < TM.nMol; n++){

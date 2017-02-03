@@ -20,10 +20,15 @@ public class checkGromacs {
               to = new trr_out(args);
               allTestsPassed = false;
            }else{
-              System.out.println("Four parameters needed:");
+              System.out.println("Number of parameters entered:"+args.length);
+              System.out.println("Seven parameters needed after '-v':");
               System.out.println("   1- Path to edr_out file.");
               System.out.println("   2- Path to trr_out file.");
               System.out.println("   3- Number of frames.");
+              System.out.println("   4- Number of Atoms.");
+              System.out.println("   5- Target Temperature.");
+              System.out.println("   6- rCut for cutoff.");
+              System.out.println("   7- Tau for Berendsen thermostat.");
            }
     }
 }

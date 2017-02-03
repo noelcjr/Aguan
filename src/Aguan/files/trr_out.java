@@ -24,10 +24,10 @@ public class trr_out {
     private MD md;
     public String[] columnNames, columnUnits; 
     public int[] frame;
-    public int frameCount;
+    public int frameCount, entryCount;
     public file edr_out;
     public file trr_out;
- 
+    private double[] fxs, fys, fzs; 
     private edr_out eo;
 
     public int natoms, step, index, lamda;
@@ -47,26 +47,31 @@ public class trr_out {
            TM.NDIM = 3;
            TM.allAtoms = Integer.parseInt(args[4]);
            TM.nMol = TM.allAtoms/3;
-             System.out.println("TM.nMol="+TM.nMol);
-             System.out.println("TM.sitesMol="+TM.sitesMol);
-             System.out.println("TM.bCon="+TM.bCon);
-             System.out.println("TM.ro="+TM.ro);
-             System.out.println("TM.ep="+TM.ep);
-             System.out.println("TM.electricField="+TM.electricField);
-           TM.fxs = new double[TM.nMol*TM.sitesMol];
-           TM.fys = new double[TM.nMol*TM.sitesMol];
-           TM.fzs = new double[TM.nMol*TM.sitesMol];
+           //  System.out.println("TM.nMol="+TM.nMol);
+           //  System.out.println("TM.sitesMol[0]="+TM.sitesMol[0]);
+           //  System.out.println("TM.bCon="+TM.bCon);
+           //  System.out.println("TM.ro[0]="+TM.ro[0]);
+           //  System.out.println("TM.ep[0]="+TM.ep[0]);
+           //  System.out.println("TM.electricField="+TM.electricField);
+           TM.fxs = new double[TM.nMol*TM.sitesMol[0]];
+           fxs = new double[TM.nMol*TM.sitesMol[0]];
+           TM.fys = new double[TM.nMol*TM.sitesMol[0]];
+           fys = new double[TM.nMol*TM.sitesMol[0]];
+           TM.fzs = new double[TM.nMol*TM.sitesMol[0]];
+           fzs = new double[TM.nMol*TM.sitesMol[0]];
            TM.targetTemperature = Double.parseDouble(args[5]);
-           TM.rCut = Double.parseDouble(args[6])/TM.ro;
-             System.out.println("TM.rCut="+TM.rCut+" "+args[6]+"x10 A");
+           TM.rCut = Double.parseDouble(args[6])/TM.ro[0];
+           // System.out.println("TM.rCut="+TM.rCut+" "+args[6]+"x10 A");
            TM.tau = Double.parseDouble(args[7]);
-             System.out.println("TM.tau="+TM.tau);
+           // System.out.println("TM.tau="+TM.tau);
            TM.initMatrix();
            parameters.DefineMol(TM,"tip3p");
            int frame = 0, index = 0;   int numTokens, numTokens2;
            box = new double[3][3];       
            boolean continueLoop = true;
            frameCount = 0;
+           entryCount = 1;
+           System.out.println("count frame atom dimesion GromacsF AguanF");
            while(continueLoop){
                      if( ( line = trr_dataFile.readLine( ) ) != null ){
                        token = new StringTokenizer(line," \t\n\r\f,(){}[]=:");
@@ -76,7 +81,7 @@ public class trr_out {
                        if(second_token.equals("frame")){
                           trr_file_name = first_token;
                           frame = Integer.parseInt(token.nextToken());
-                          System.out.println(trr_file_name+"-->"+frame);
+                          //System.out.println(trr_file_name+"-->"+frame);
                        }else if(first_token.equals("natoms")){
                              natoms = Integer.parseInt(second_token);
                              if(token.nextToken().equals("step")){
@@ -93,17 +98,17 @@ public class trr_out {
                                 box[0][0] = Double.parseDouble(token.nextToken());
                                 box[0][1] = Double.parseDouble(token.nextToken());
                                 box[0][2] = Double.parseDouble(token.nextToken());
-                                TM.regionX = box[0][0]/TM.ro;
+                                TM.regionX = box[0][0]/TM.ro[0];
                              }else if(second_token.equals("1")){
                                 box[1][0] = Double.parseDouble(token.nextToken());
                                 box[1][1] = Double.parseDouble(token.nextToken());
                                 box[1][2] = Double.parseDouble(token.nextToken());
-                                TM.regionY = box[1][1]/TM.ro;
+                                TM.regionY = box[1][1]/TM.ro[0];
                              }else if(second_token.equals("2")){
                                 box[2][0] = Double.parseDouble(token.nextToken());
                                 box[2][1] = Double.parseDouble(token.nextToken());
                                 box[2][2] = Double.parseDouble(token.nextToken());
-                                TM.regionZ = box[2][2]/TM.ro;
+                                TM.regionZ = box[2][2]/TM.ro[0];
                              }
                              TM.volume = TM.regionX*TM.regionY*TM.regionZ;
                        }else if(first_token.equals("x")){
@@ -113,10 +118,10 @@ public class trr_out {
                                    token2 = new StringTokenizer(line," \t\n\r\f,(){}[]=:");
                                    temp = token2.nextToken();
                                    index = Integer.parseInt(token2.nextToken());
-                                      TM.rxs[counter] = Double.parseDouble(token2.nextToken())/TM.ro;
-                                      TM.rys[counter] = Double.parseDouble(token2.nextToken())/TM.ro;
-                                      TM.rzs[counter] = Double.parseDouble(token2.nextToken())/TM.ro;
-                                        System.out.printf("      xyz[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,TM.rxs[counter],TM.rys[counter],TM.rzs[counter]);
+                                      TM.rxs[counter] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+                                      TM.rys[counter] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+                                      TM.rzs[counter] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+                                      //System.out.printf("      x[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,(TM.rxs[counter]*TM.ro[0]),(TM.rys[counter]*TM.ro[0]),(TM.rzs[counter]*TM.ro[0]));
                                       if((index%3) == 0){
                                         TM.rx[index2] = TM.rxs[counter];
                                         TM.ry[index2] = TM.rys[counter];
@@ -126,12 +131,12 @@ public class trr_out {
                                         TM.rxs[counter] = TM.rxs[counter-1];
                                         TM.rys[counter] = TM.rys[counter-1];
                                         TM.rzs[counter] = TM.rzs[counter-1];
-                                        System.out.printf("      xyz[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,TM.rxs[counter],TM.rys[counter],TM.rzs[counter]);
+                                        //System.out.printf("      x[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,(TM.rxs[counter]*TM.ro[0]),(TM.rys[counter]*TM.ro[0]),(TM.rzs[counter]*TM.ro[0]));
                                       }
                                       counter++;
                                  }
                              } 
-                             System.out.println("index2="+index2);
+                             //System.out.println("index2="+index2);
                        }else if(first_token.equals("v")){
                              // Reads velocities and Calculates temperatures at the same time
                              TM.vvSum = 0.0;
@@ -143,6 +148,7 @@ public class trr_out {
                                    TM.vxs[index] = Double.parseDouble(token2.nextToken());
                                    TM.vys[index] = Double.parseDouble(token2.nextToken());
                                    TM.vzs[index] = Double.parseDouble(token2.nextToken());
+                                    //System.out.printf("      x[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,TM.vxs[index],TM.vys[index],TM.vzs[index]);
                                  }
                              }
                              for(int n = 0; n <= index; n++){
@@ -160,17 +166,27 @@ public class trr_out {
                                    token2 = new StringTokenizer(line," \t\n\r\f,(){}[]=:");
                                    temp = token2.nextToken();
                                    index = Integer.parseInt(token2.nextToken());
-                                   TM.fxs[index] = Double.parseDouble(token2.nextToken());
-                                   TM.fys[index] = Double.parseDouble(token2.nextToken());
-                                   TM.fzs[index] = Double.parseDouble(token2.nextToken());
+                                   fxs[index] = Double.parseDouble(token2.nextToken());
+                                   fys[index] = Double.parseDouble(token2.nextToken());
+                                   fzs[index] = Double.parseDouble(token2.nextToken());
                                  }
                              }
-                             frameCount++;
                              md.ComputeSiteForces(TM);
+                             int counter = 1;
+                             for(int k = 0; k < natoms; k++){
+                                 System.out.printf("%7d %d %d x % -1.5e % -1.5e\n",entryCount,frameCount,counter,TM.fxs[k],fxs[k]);
+                                 entryCount++;
+                                 System.out.printf("%7d %d %d y % -1.5e % -1.5e\n",entryCount,frameCount,counter,TM.fys[k],fys[k]);
+                                 entryCount++;
+                                 System.out.printf("%7d %d %d z % -1.5e % -1.5e\n",entryCount,frameCount,counter,TM.fzs[k],fzs[k]);
+                                 entryCount++;
+                                 counter++;
+                             }
                              TM.pressure = (2/(TM.volume*3))*(0.5*TM.vvSum + 0.5*TM.virSum);
-                             displayTRR(frame);   
-                             eo.displayEDR(TM,time,step);    
-                             System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%");         
+                             displayTRR(frame); 
+                             eo.displayEDR(TM,time,step);
+                             frameCount++;
+                             //System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%");         
                        }
                      }else{
                           continueLoop = false;
@@ -190,9 +206,9 @@ public class trr_out {
             trr_out.PW.println("   x ("+natoms+"x"+"3):");
             int counter = 0;
             for(c = 0; c < natoms+TM.nMol; c++){
-                if((c%TM.sitesMol)==0){
+                if((c%TM.sitesMol[0])==0){
                 }else{
-                     trr_out.PW.printf("      x[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,(TM.ro*TM.rxs[c]),(TM.ro*TM.rys[c]),(TM.ro*TM.rzs[c]));
+                     trr_out.PW.printf("      x[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",counter,(TM.ro[0]*TM.rxs[c]),(TM.ro[0]*TM.rys[c]),(TM.ro[0]*TM.rzs[c]));
                      counter++;
                 }
             }
@@ -205,16 +221,16 @@ public class trr_out {
             int index = 0; int index2 = 0;
             for(c = 0; c < TM.nMol; c++){
                 tempX = tempY = tempZ = 0;
-                index2 = c*TM.sitesMol;
-                for(d = 0; d < TM.sitesMol; d++){
+                index2 = c*TM.sitesMol[0];
+                for(d = 0; d < TM.sitesMol[0]; d++){
                     if(d == 0){
                        tempX = TM.fxs[index2+d];   tempY = TM.fys[index2+d];    tempZ = TM.fzs[index2+d];
                     }else if(d==1){
                        tempX = tempX + TM.fxs[index2+d];   tempY = tempY + TM.fys[index2+d];    tempZ = tempZ + TM.fzs[index2+d];
-                       trr_out.PW.printf("      f[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",index,(TM.ep*tempX/TM.ro),(TM.ep*tempY/TM.ro),(TM.ep*tempZ/TM.ro));
+                       trr_out.PW.printf("      f[%5d]={% -1.5e, % -1.5e, % -1.5e}\n",index,(TM.ep[0]*tempX/TM.ro[0]),(TM.ep[0]*tempY/TM.ro[0]),(TM.ep[0]*tempZ/TM.ro[0]));
                        index++;
                     }else{
-                       trr_out.PW.printf("      f[%5d]={% -1.5e, % -1.5e, % -1.5e} c= %d , d= %d\n",index,(TM.ep*TM.fxs[index2+d]/TM.ro),(TM.ep*TM.fys[index2+d]/TM.ro),(TM.ep*TM.fzs[index2+d]/TM.ro),c,d);
+                       trr_out.PW.printf("      f[%5d]={% -1.5e, % -1.5e, % -1.5e} c= %d , d= %d\n",index,(TM.ep[0]*TM.fxs[index2+d]/TM.ro[0]),(TM.ep[0]*TM.fys[index2+d]/TM.ro[0]),(TM.ep[0]*TM.fzs[index2+d]/TM.ro[0]),c,d);
                        index++;
                     }
                 }

@@ -32,13 +32,13 @@ public class rotateTranslateOneWaterTest {
     }
     public void SetParams(TheMatrix TM){
         if(TM.molType.equalsIgnoreCase("tip3p")){
-           TM.sitesMol = 4;
+           TM.sitesMol[0] = 4;
         }else if(TM.molType.equalsIgnoreCase("tip4p")){
-           TM.sitesMol = 4;
+           TM.sitesMol[0] = 4;
         }else if(TM.molType.equalsIgnoreCase("tip5p")){
-           TM.sitesMol = 5;
+           TM.sitesMol[0] = 5;
         }else if(TM.molType.equalsIgnoreCase("st2")){
-           TM.sitesMol = 5;
+           TM.sitesMol[0] = 5;
         }
         TM.NDIM = 3;
         TM.regionX = (1/Math.pow(TM.density,0.333333))*regionX;
@@ -54,7 +54,7 @@ public class rotateTranslateOneWaterTest {
         RandomGenerate(TM);
         GenSiteCoord(TM);
  //     TM.rvx[0] = 1.0;
-        //PM.dcdM.write_header("CORD",(TM.minimization+TM.stepLimit),1, 1, (TM.nCharges*TM.nMol));
+        //PM.dcdM.write_header("CORD",(TM.minimization+TM.stepLimit),1, 1, (TM.nCharges[0]*TM.nMol));
         System.out.println("10 ="+TM.rx[0]+" "+TM.ry[0]+" "+TM.rz[0]);
         System.out.println("1w1 ="+TM.rxs[0]+" "+TM.rys[0]+" "+TM.rzs[0]);
         System.out.println("1w2 ="+TM.rxs[1]+" "+TM.rys[1]+" "+TM.rzs[1]);
@@ -67,7 +67,7 @@ public class rotateTranslateOneWaterTest {
               if(i < 10){System.out.println((i+1)+" ="+TM.rx[0]+" "+TM.ry[0]+" "+TM.rz[0]);}
               ApplyBoundaryCond(TM);
               GenSiteCoord(TM);
-              PM.dcdM.write_dcdStep((TM.nCharges*TM.nMol),TM.rxs,TM.rys,TM.rzs,TM.ro,TM.vdwPoint);
+              PM.dcdM.write_dcdStep((TM.nCharges[0]*TM.nMol),TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.vdwPoint);
         }*/
         double[] mc, mt;
         double tx, ty, tz;
@@ -106,7 +106,7 @@ public class rotateTranslateOneWaterTest {
             System.out.println("ww2 ="+TM.rxs[1]+" "+TM.rys[1]+" "+TM.rzs[1]);
             System.out.println("ww3 ="+TM.rxs[2]+" "+TM.rys[2]+" "+TM.rzs[2]);
             System.out.println("ww4 ="+TM.rxs[3]+" "+TM.rys[3]+" "+TM.rzs[3]);
-            //PM.dcdM.write_dcdStep((TM.nCharges*TM.nMol),TM.rxs,TM.rys,TM.rzs,TM.ro,TM.vdwPoint);
+            //PM.dcdM.write_dcdStep((TM.nCharges[0]*TM.nMol),TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.vdwPoint);
         }
         CRD.createCRDFile(TM);
         PSF.createPSFFile(TM);
@@ -173,49 +173,49 @@ public class rotateTranslateOneWaterTest {
        }
     }
     public void DefineMol(TheMatrix TM, String name){
-        for(int j = 0; j < TM.sitesMol; j++){
+        for(int j = 0; j < TM.sitesMol[0]; j++){
             TM.rmx[j] = 0.0; TM.rmy[j] = 0.0; TM.rmz[j] = 0.0;
         }
         if(name.equalsIgnoreCase("tip3p")){
-           TM.bCon = 120.3995;
-           TM.ro = 3.15061;
-           TM.ep = 0.1521;
+           TM.bCon[0] = 120.3995;
+           TM.ro[0] = 3.15061;
+           TM.ep[0] = 0.1521;
            TM.rmz[0] = -0.0207;
            TM.rmz[1] = -0.0207;
            TM.rmy[2] = 0.2402;   TM.rmz[2] = 0.1653;
            TM.rmy[3] =-0.2402;   TM.rmz[3] = 0.1653;
            TM.typeF[0] = 1;   TM.typeF[1] = 2;    TM.typeF[2] = 3;    TM.typeF[3] = 3;
-           TM.nAtoms = 3;     TM.nCharges = 3;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 3;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+4){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+4){
                TM.atomType[j] = 1;
                TM.atomType[j+1] = 2;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 3;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("tip4p")){
-           TM.bCon = 183.6615;
-           TM.ro = 3.15365;
-           TM.ep = 0.1549;
+           TM.bCon[0] = 183.6615;
+           TM.ro[0] = 3.15365;
+           TM.ep[0] = 0.1549;
            TM.rmz[0] =-0.02065;
            TM.rmz[1] = 0.02695;
            TM.rmy[2] = 0.2400;    TM.rmz[2] = 0.1652;
            TM.rmy[3] = -0.2400;   TM.rmz[3] = 0.1652;
            TM.typeF[0] = 1;   TM.typeF[1] = 2;    TM.typeF[2] = 3;    TM.typeF[3] = 3;
-           TM.nAtoms = 3;      TM.nCharges = 3;
+           TM.nAtoms[0] = 3;      TM.nCharges[0] = 3;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+4){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+4){
                TM.atomType[j] = 1;
                TM.atomType[j+1] = 2;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 3;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("tip5p")){
-           TM.bCon = 39.4567;
-           TM.ro = 3.1200;
-           TM.ep = 0.1599;
+           TM.bCon[0] = 39.4567;
+           TM.ro[0] = 3.1200;
+           TM.ep[0] = 0.1599;
            TM.rmz[0] = -0.0209;
            TM.rmy[1] = 0.2426;   TM.rmz[1] = 0.1669;
            TM.rmy[2] =-0.2426;   TM.rmz[2] = 0.1669;
@@ -223,36 +223,36 @@ public class rotateTranslateOneWaterTest {
            TM.rmx[4] =-0.1832;   TM.rmz[4] = -0.1504;
            TM.typeF[0] = 1;   TM.typeF[1] = 3;    TM.typeF[2] = 3;
            TM.typeF[3] = 7;   TM.typeF[4] = 7;
-           TM.nAtoms = 3;     TM.nCharges = 4;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 4;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+5){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+5){
                TM.atomType[j] = 2;
                TM.atomType[j+1] = 3;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 4;
                TM.atomType[j+4] = 4;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("st2")){
-           TM.bCon = 4.5224;
-           TM.ro = 3.1000;
-           TM.ep =0.0757;
+           TM.bCon[0] = 4.5224;
+           TM.ro[0] = 3.1000;
+           TM.ep[0] =0.0757;
            TM.rmx[0] = -0.0207;
            TM.rmy[1] = 0.263;   TM.rmz[1] = 0.1656;
            TM.rmy[2] =-0.263;   TM.rmz[2] = 0.1656;
            TM.rmx[3] = 0.2107;  TM.rmz[3] =-0.1697;
            TM.rmx[4] =-0.2107;  TM.rmz[4] =-0.1697;
            TM.typeF[0] = 1;   TM.typeF[1] = 3;    TM.typeF[2] = 3;    TM.typeF[3] = 7;   TM.typeF[4] = 7;
-           TM.nAtoms = 3;     TM.nCharges = 4;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 4;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+5){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+5){
                TM.atomType[j] = 2;
                TM.atomType[j+1] = 3;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 4;
                TM.atomType[j+4] = 4;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("spc")){
 
         }
@@ -261,15 +261,15 @@ public class rotateTranslateOneWaterTest {
         double tx, ty, tz;
         //System.out.println("5 TM.nMol = "+TM.nMol);
         for(int n = 0; n < TM.nMol; n++){
-            for(int j = 0; j < TM.sitesMol; j++){
+            for(int j = 0; j < TM.sitesMol[0]; j++){
              // System.out.println(n+" -- "+j);
                 tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                 ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                 tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;                
+                TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;                
             }
         }
     }

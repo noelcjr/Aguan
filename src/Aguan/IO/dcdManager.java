@@ -6,6 +6,7 @@
 package Aguan.IO;
 
 import java.io.*;
+import Aguan.TheMatrix.TheMatrix;
 /**
  *
  * @author Noel
@@ -121,68 +122,223 @@ public class dcdManager {
     public void write_header(String a, int nset, int istart,int nsavc,int N){
        try{
           int i;
-          data_out.writeInt((int)84);
-//          char[] header = a.toCharArray();
+          data_out.writeInt((int)84); // 4 4
+//        char[] header = a.toCharArray();
           if(a.equals("CORD")){
-             data_out.writeByte(67);
-             data_out.writeByte(79);
-             data_out.writeByte(82);
-             data_out.writeByte(68);
+             data_out.writeByte(67);  // 1 5
+             data_out.writeByte(79);  // 1 6
+             data_out.writeByte(82);  // 1 7
+             data_out.writeByte(68);  // 1 8
           }
-          data_out.writeInt((int)nset);     // NSET
-          data_out.writeInt((int)istart);   //ISTART
-          data_out.writeInt((int)nsavc);    // NSAVC
-          for(i = 0; i < 5; i++){data_out.writeInt((int)0);} // Espacio en blanco No usado ??
-          data_out.writeInt((int)0);        // NAMNF
-          data_out.writeFloat((float)0.040909655); //DELTA
-          for(i = 0; i < 10; i++){data_out.writeInt((int)0);} // Espacio en blanco No usado ??}
-          data_out.writeInt((int)84);       // Constant 84
-          data_out.writeInt((int)164);      // Title size = 244
-          data_out.writeInt((int)2);        // Number of lines in title = 3
-          for(i = 0; i < 40; i++){data_out.writeInt((int)0);}  // Title text
-          data_out.writeInt((int)164);      // Title size = 244
-          data_out.writeInt((int)4);        // Just a number 4
-          data_out.writeInt((int)N);
-          data_out.writeInt((int)4);        // Total number of bytes in header 276 when title = 164 
-       //   data_out.flush();
+          data_out.writeInt((int)nset);     // NSET                                            //   4 12
+          data_out.writeInt((int)istart);   //ISTART                                           //   4 16
+          data_out.writeInt((int)nsavc);    // NSAVC                                           //   4 20
+          for(i = 0; i < 5; i++){data_out.writeInt((int)0);} // Espacio en blanco No usado ??  // 5*4 40
+          data_out.writeInt((int)0);        // NAMNF                                           //   4 44
+          data_out.writeFloat((float)0.040909655); //DELTA                                     //   4 48
+          for(i = 0; i < 10; i++){data_out.writeInt((int)0);} // Espacio en blanco No usado ??}//10*4 88 
+          data_out.writeInt((int)84);       // Constant 84                                     //   4 92
+          data_out.writeInt((int)164);      // Title size = 244                                //   4 96
+          data_out.writeInt((int)2);        // Number of lines in title = 3                    //   4 100
+          for(i = 0; i < 40; i++){data_out.writeInt((int)0);}  // Title text                   //40*4 260
+          data_out.writeInt((int)164);      // Title size = 244                                //   4 264
+          data_out.writeInt((int)4);        // Just a number 4                                 //   4 268
+          data_out.writeInt((int)N);                                                           //   4 272
+          data_out.writeInt((int)4);        // Total number of bytes in header 276 when title = 164 // 4 276
+          //   data_out.flush();
         }catch( IOException e ){System.err.println( e );}
     }
+  /**  public void write_dcdStep(TheMatrix TM){
+        double tx, ty, tz;
+        int index = 0;
+        int atomCount = 1;
+        int atomIndex = 0;
+        int molCount = 1;
+        int particleCount;
+        particleCount = 0;
+        for(int i = 0; i < TM.nMol; i++){
+            if(TM.nMolNames[i].equals("tip5p") || TM.nMolNames[i].equals("st2")){
+                particleCount = particleCount + TM.sitesMolIdx[i];
+            }else if(TM.nMolNames[i].equals("tip3p") || TM.nMolNames[i].equals("tip4p")){
+                particleCount = particleCount + TM.sitesMolIdx[i] - 1;
+            }else if(TM.nMolNames[i].equals("watLJ")){
+                particleCount = particleCount + TM.sitesMolIdx[i] - 1;
+            }
+        }
+        double x, y, z;
+        x = 0.0; y = 0.0; z = 0.0;
+        String atomTyp;
+        atomTyp = "";
+        //for(int i = 0; i < TM.rxs.length; i++){
+        //    System.out.println(i+" "+TM.rxs[i]+" "+TM.rys[i]+" "+TM.rzs[i]);
+        //}
+        //System.out.println("@@@@---@@@@----@@@---@@@@----@@@@----@@@@");
+        for(int i = 0; i < TM.nMol; i++){
+           if(TM.nMolNames[i].equals("tip5p")){
+              for(int j = 0; j < TM.sitesMolIdx[i]; j++){
+                x = TM.rxs[index + j];
+                y = TM.rys[index + j];
+                z = TM.rzs[index + j];
+                atomCount++;
+                atomIndex++;
+              }
+              index = index + TM.sitesMolIdx[i];
+              molCount++;
+           }else if(TM.nMolNames[i].equals("st2")){
+              for(int j = 0; j < TM.sitesMolIdx[i]; j++){
+                x = TM.rxs[index + j];
+                y = TM.rys[index + j];
+                z = TM.rzs[index + j];
+                atomCount++;
+                atomIndex++;
+              }
+              index = index + TM.sitesMolIdx[i];
+              molCount++;
+           }else if(TM.nMolNames[i].equals("tip3p")){
+              //System.out.println(i+") "+TM.sitesMolIdx[i]);
+              for(int j = 1; j < TM.sitesMolIdx[i]; j++){
+                // x, y, z add one to j to get coords of atoms, not LJ points
+                x = TM.rxs[index + j];
+                y = TM.rys[index + j];
+                z = TM.rzs[index + j];
+                //System.out.printf("%d %d %d %4s % 10.5f % 9.5f % 9.5f W %d %d\n",i,atomCount,molCount,"TIP3P",x,y,z,index,TM.sitesMolIdx[i]);
+                atomCount++;
+                atomIndex++;
+              }
+              index = index + TM.sitesMolIdx[i];
+              molCount++;
+           }else if(TM.nMolNames[i].equals("tip4p")){
+              for(int j = 0; j < (TM.sitesMolIdx[i]-1); j++){
+                // x, y, z add one to j to get coords of atoms, not LJ points
+                x = TM.rxs[index + j + 1];
+                y = TM.rys[index + j + 1];
+                z = TM.rzs[index + j + 1];
+                atomCount++;
+                atomIndex++;
+              }
+              index = index + TM.sitesMolIdx[i];
+              molCount++;
+           }else if(TM.nMolNames[i].equals("watLJ")){
+              //System.out.println(i+") "+TM.sitesMolIdx[i]);
+              for(int j = 1; j < TM.sitesMolIdx[i]; j++){
+                // x, y, z add one to j to get coords of atoms, not LJ points
+                x = TM.rxs[index + j];
+                y = TM.rys[index + j];
+                z = TM.rzs[index + j];
+                //System.out.printf("%d %d %d %4s % 10.5f % 9.5f % 9.5f W %d %d\n",i,atomCount,molCount,"WTLJ",x,y,z,index,TM.sitesMolIdx[i]);
+                atomCount++;
+                atomIndex++;
+              }
+              index = index + TM.sitesMolIdx[i];
+              molCount++;
+           }
+        }
+    }*/
+
+    public void write_dcdStep(int nn, int nMol, int[] atomType, int[] sitesMolIdx, double[] Xc, double[] Yc, double[] Zc, double ro){
+        try{
+            data_out.writeInt((int)(nn*4));
+            int index = 0;
+            for(int n = 0; n < nMol; n++){
+                // NOTE: J = 1 because in this case VDW particle is always the first particle FIX!!
+                for(int j = 0; j < sitesMolIdx[n]; j++){
+                    if(j != 0){
+                       //System.out.println(n+" "+j+" "+sitesMolIdx[n]+" "+atomType[n]+" "+(Xc[index+j]*ro)+" "+(Yc[index+j]*ro)+" "+(Zc[index+j]*ro)+" ro="+ro);
+                       data_out.writeFloat((float)(Xc[index+j]*ro));
+                    }
+                }
+                index = index + sitesMolIdx[n];
+            }
+            //System.out.println("--------------------------------------");
+            data_out.writeInt((int)(nn*4));    // 4 44
+            data_out.writeInt((int)(nn*4));    // 4 48
+            index = 0;
+            for(int n = 0; n < nMol; n++){
+                for(int j = 0; j < sitesMolIdx[n]; j++){
+                    if(j != 0){
+                       data_out.writeFloat((float)(Yc[index+j]*ro));
+                    }
+                }
+                index = index + sitesMolIdx[n];
+            }
+            data_out.writeInt((int)(nn*4));    // 4 44
+            data_out.writeInt((int)(nn*4));    // 4 48
+            index = 0;
+            for(int n = 0; n < nMol; n++){
+                for(int j = 1; j < sitesMolIdx[n]; j++){
+                   if(j != 0){
+                      data_out.writeFloat((float)(Zc[index+j]*ro));
+                   }
+                }
+                index = index + sitesMolIdx[n];
+            }
+            data_out.writeInt((int)(nn*4));    // 4 48
+        }catch( IOException e ){System.err.println( e );}
+    }
+    /**public void write_dcdStep(int n, int[] atomType, double[] Xc, double[] Yc, double[] Zc, double ro){
+        try{
+            int counter = 0;
+            data_out.writeInt((int)(n*4));    // 4 4
+
+            for(int i = 0; i < Xc.length; i++){
+                //System.out.println(i+"=="+atomType[i]+" "+Xc[i]+" "+Yc[i]+" "+Zc[i]);
+                if(atomType[i] != 1){
+                  data_out.writeFloat((float)(Xc[i]*ro)); //  9*4 36 40 
+                }
+            }
+            data_out.writeInt((int)(n*4));    // 4 44
+            data_out.writeInt((int)(n*4));    // 4 48
+            for(int i = 0; i < Yc.length; i++){
+                if(atomType[i] != 1){
+                  data_out.writeFloat((float)(Yc[i]*ro));  // 9*4 36 84        
+                }
+            }
+            data_out.writeInt((int)(n*4));    // 4 88
+            data_out.writeInt((int)(n*4));    // 4 92
+            for(int i = 0; i < Zc.length; i++){
+                if(atomType[i] != 1){
+                  data_out.writeFloat((float)(Zc[i]*ro));  // 9*4 36 128        
+                }
+            }
+            data_out.writeInt((int)(n*4));    // 4 132
+        }catch( IOException e ){System.err.println( e );}
+    }*/
     public void write_dcdStep(int n, double[] Xc, double[] Yc, double[] Zc, double ro, int noPoint){
         try{
             int counter = 0;
             int vdw = noPoint;
-            data_out.writeInt((int)(n*4));
+            data_out.writeInt((int)(n*4));    // 4 4
             for(int j = 0; j < (Xc.length/4); j++){
                 for(int i = 0; i < 4; i++){
                     if(i != vdw){
-                       data_out.writeFloat((float)(Xc[counter]*ro));
+                       data_out.writeFloat((float)(Xc[counter]*ro));  // 9*4 40
                     }
                    counter++;
                 }
             }
-            data_out.writeInt((int)(n*4));
-            data_out.writeInt((int)(n*4));
+            data_out.writeInt((int)(n*4));                            //  4 44
+            data_out.writeInt((int)(n*4));                            //  4 48
             counter = 0;
             for(int j = 0; j < (Yc.length/4); j++){
                 for(int i = 0; i < 4; i++){
                    if(i != vdw){
-                       data_out.writeFloat((float)(Yc[counter]*ro));
+                       data_out.writeFloat((float)(Yc[counter]*ro));   //9*4 84
                    }
                    counter++;
                 }
             }
-            data_out.writeInt((int)(n*4));
-            data_out.writeInt((int)(n*4));
+            data_out.writeInt((int)(n*4));                              // 4 88
+            data_out.writeInt((int)(n*4));                              // 4 92
             counter = 0;
             for(int j = 0; j < (Zc.length/4); j++){
                for(int i = 0; i < 4; i++){
                    if(i != vdw){
-                       data_out.writeFloat((float)(Zc[counter]*ro));
+                       data_out.writeFloat((float)(Zc[counter]*ro));    //9*4 128
                    }
                    counter++;
                 }
             }
-            data_out.writeInt((int)(n*4));
+            data_out.writeInt((int)(n*4));                              //  4 132
         }catch( IOException e ){System.err.println( e );}
     }
  /*   public void write_dcdStepTIP4P(int n, double[] Xc, double[] Yc, double[] Zc){

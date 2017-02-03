@@ -15,7 +15,7 @@ public class file {
     private boolean os_file_write = false;
     public long bytes_read_file_length;
     public String file_type = "";
-    private String path;
+    public String path;
     //////////////////////////////////////////////
     public file(){}
     public file(String fl_path){

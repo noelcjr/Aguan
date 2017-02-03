@@ -75,6 +75,6 @@ molecules at the expected number of steps. This validates this part of the progr
 ##################################################################################################
 
 NOTE:If the molecules are visualized using VMD, make sure to load the CRD after the PSF file, and follow
-that with the DCD file. When loading the CRD, make sure that the file type that tells VMD the forlmat of
+that with the DCD file. When loading the CRD, make sure that the file type that tells VMD the format of
 the file is the one corresponding to "CHARMM coordinates". This is because the suffix CRD is used
 by another program with a different format. 

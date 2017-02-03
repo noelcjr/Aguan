@@ -24,7 +24,7 @@ public class compareFiles {
               dataFile = new BufferedReader( FR );
               while( ( line = dataFile.readLine( ) ) != null ){
                   StringTokenizer token = new StringTokenizer(line);
-                  cmpFls(token.nextToken(),token.nextToken(),Integer.parseInt(token.nextToken()));
+                  cmpFls(token.nextToken(),token.nextToken());
               }
               System.out.println("+++++++++++++++++++++++++++++++++++");
               System.out.println("allTestsPassed?:"+allTestsPassed);
@@ -34,18 +34,19 @@ public class compareFiles {
            }
         }catch( IOException e ){System.err.println( e );}
     }
-    public void cmpFls(String file1, String file2, int lines){
+    public void cmpFls(String file1, String file2){
         try{
            FileReader test, ref;
            BufferedReader d1, d2;
-           System.out.println("Comparing "+file1+" and "+file2+" with "+lines);
            test =  new FileReader(file1);
            d1 = new BufferedReader( test );
            ref =  new FileReader(file2);
            d2 = new BufferedReader( ref );
            String line1, line2;
            boolean passedTest = true;
-           for(int i = 0; i < lines; i++){
+           boolean readlines = true;
+           //for(int i = 0; i < lines; i++){
+           while(readlines){
                line1 = d1.readLine();
                line2 = d2.readLine();
                if((line1 != null) && (line2 != null)){
@@ -57,9 +58,11 @@ public class compareFiles {
 //                      System.out.println("   Line "+line1);
 //                      System.err.println("    and "+line2+" are unequal.");
                    }
+               }else{
+                   readlines = false;
                }
            }
-           System.out.println("PassTest?:"+passedTest);
+           System.out.println("PassTest:"+passedTest+" vimdiff "+file1+" "+file2);
         }catch( IOException e ){System.err.println( e );}
     }
 }

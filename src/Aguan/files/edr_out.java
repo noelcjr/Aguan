@@ -99,12 +99,12 @@ public class edr_out {
             edrOut.PW.printf("               Component        Energy    Av. Energy    Sum Energy\n");
             for(int hh = 0; hh < index+1; hh++){
                for(int g = 0; g < (24-columnNames[hh].length()); g++){edrOut.PW.printf(" ");}
-               if(hh == 0){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep*TM.uSumVDW));} // CHanged 5 for 18 to get max accuracy.
-               else if(hh == 1){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep*TM.uSumEE));}
-               //else if(hh == 2){edrOut.PW.printf("%s % -1.5e\n",columnNames[hh],(TM.ep*TM.uSumRF1));}
-               else if(hh == 2){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep*TM.uSum));}
+               if(hh == 0){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep[0]*TM.uSumVDW));} // CHanged 5 for 18 to get max accuracy.
+               else if(hh == 1){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep[0]*TM.uSumEE));}
+               //else if(hh == 2){edrOut.PW.printf("%s % -1.5e\n",columnNames[hh],(TM.ep[0]*TM.uSumRF1));}
+               else if(hh == 2){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.ep[0]*TM.uSum));}
                else if(hh == 3){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(TM.trzKinEnergyVal));}
-               else if(hh == 4){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],((TM.ep*TM.uSum)+TM.trzKinEnergyVal));}
+               else if(hh == 4){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],((TM.ep[0]*TM.uSum)+TM.trzKinEnergyVal));}
                else if(hh == 5){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],TM.translationalTemperature);}
                else if(hh == 6){edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],(337.92*TM.pressure));}
                else{edrOut.PW.printf("%s  % -1.5e\n",columnNames[hh],0.0);}

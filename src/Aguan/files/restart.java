@@ -17,12 +17,15 @@ public class restart extends file {
     public PrintWriter pout;
     private TheMatrix TM;
     private double pwer;
+    private int argCount;
+    private long randomSeed;
     private Random generator;
-    private String file_out; 
+    private String file_out;
+    public String molecules; 
     private psf PSF;
     private crd CRD;
     private gro GRO;
-/**    public restart(String in, String out){
+    /**  public restart(String in, String out){
          super(in);
          super.file_type = "restart";
          file_out = out;
@@ -32,29 +35,112 @@ public class restart extends file {
     public restart(String in){
          super(in);
          super.file_type = "restart";
+         molecules = "";
     }
     public restart(String[] args){
          super();
          super.file_type = "restart";
          TM = new TheMatrix();
-      if(args.length == 1){
-         System.out.println("Follow -c by the following restart commands:");
-         command_description();
-      }else{
-         if(args[1].equals("-random")){
-               super.openOutputWriter(args[2]+"_0.rst");
+         int iterations, tempArgCount, nMolNames;
+         if(args.length == 1){
+            System.out.println("Follow -c by the following restart commands:");
+            command_description();
+         }else{
+            if(args[1].equals("-random")){
+               argCount = 2;
+               super.openOutputWriter(args[argCount]+"_0.rst");
+               //System.out.println(args[argCount]+" .rst");
+               argCount++;
                pout = super.PW;
                TM.restartCount = 0;
-               TM.nMol = Integer.parseInt(args[3]);         // Number of water molecules.
-               parameters.DefinePar(TM,args[4]);            // Water model.
-               TM.initMatrix();
-               parameters.DefineMol(TM,args[4]);     
-               TM.regionX = Double.parseDouble(args[5])/TM.ro;    // Box X
-               TM.regionY = Double.parseDouble(args[6])/TM.ro;    // Box Y
-               TM.regionZ = Double.parseDouble(args[7])/TM.ro;    // Box Z
-               RandomGenerate(TM, Long.parseLong(args[8]), args[1]); // args[8] is the seed to reproduce random number generation.
-               writeRestartIn(TM);
-        }else if(args[1].equals("-crystal")){
+               argCount++;
+               argCount++;
+               argCount++;
+               randomSeed = Long.parseLong(args[argCount]);
+               argCount++;
+               TM.initParams(Integer.parseInt(args[argCount]));
+               iterations = Integer.parseInt(args[argCount])*2;
+               TM.nMol = 0;
+               TM.nMolTypes = 0;
+               tempArgCount = argCount;
+               //System.out.println("tempArgCount="+tempArgCount);
+               molecules = args[argCount];
+               //System.out.println("molecules="+argCount+" "+args[argCount]);
+               //System.out.println("Iterations="+iterations);
+               if(args.length == (argCount+iterations+1)){
+                  for(int i = 0; i < iterations; i = i + 2){
+                      molecules = molecules+" "+args[argCount+1]+" "+args[argCount+2];
+                      parameters.DefinePar(TM,args[argCount+2]);
+                      TM.moleculeTypeIndex[i] = TM.totalSitesNumber; 
+                      TM.moleculeTypeIndex[i+1] = TM.totalSitesNumber + (Integer.parseInt(args[argCount+1])*TM.sitesMol[TM.nMolTypes]);
+                      //System.out.println("From "+TM.moleculeTypeIndex[i]+" to "+TM.moleculeTypeIndex[i+1]+" "+TM.vdwPoint[TM.nMolTypes]);
+                      TM.totalSitesNumber = TM.totalSitesNumber + (Integer.parseInt(args[argCount+1])*TM.sitesMol[TM.nMolTypes]);
+                      TM.nMol = TM.nMol + Integer.parseInt(args[argCount+1]);          
+                      TM.nMolTypes++;
+                      argCount = argCount + 2;
+                  }
+                  //System.out.println("Between loops");
+                  //for(int i = 0; i < TM.nMol; i++){
+                  //    System.out.println(i+" "+TM.nMol+" "+TM.nMolTypes+" "+TM.sitesMol.length+" "+TM.vdwPoint.length);
+                  //    System.out.println(TM.sitesMol[TM.nMolTypes]);
+                  //    System.out.println(TM.vdwPoint[TM.nMolTypes]);
+                  //    TM.sitesNoVDW = TM.sitesNoVDW + (TM.sitesMol[TM.nMolTypes]-TM.vdwPoint[TM.nMolTypes]);
+                  //}
+                  //System.out.println("TM.totalSitesNumber = "+TM.totalSitesNumber+"  TM.sitesNoVDW="+TM.sitesNoVDW);
+                  // Using TM.ro[0]. This is ok because tip3p and watLJ have identical ro parameters.
+                  // but this needs to be checked for future enhancements of the program.
+                  TM.regionX = Double.parseDouble(args[3])/TM.ro[0];    // Box X
+                  TM.regionY = Double.parseDouble(args[4])/TM.ro[0];    // Box Y
+                  TM.regionZ = Double.parseDouble(args[5])/TM.ro[0];    // Box Z
+                  TM.initMatrix();
+                   //System.out.println("TM.nMol = "+TM.nMol);
+                   //System.out.println("TM.nMolTypes = "+TM.nMolTypes);
+                   //System.out.println("molecules = "+molecules);
+                  // Because this could not be done until after Matrix is initialized.
+                  TM.nMolTypes = 0;
+                  nMolNames = 0;
+                   //for(int i = 0; i < iterations; i = i + 2){
+                   //    parameters.DefineMol(TM,Integer.parseInt(args[tempArgCount+1]),args[tempArgCount+2]);
+                   //    for(int j = 0; j < Integer.parseInt(args[tempArgCount+1]); j++){
+                   //        TM.nMolNames[nMolNames] = args[tempArgCount+2];
+                   //        nMolNames++;
+                   //    }
+                   //    TM.nMolTypes++;
+                   //   tempArgCount = tempArgCount + 2;
+                   //}
+                   //System.out.println("args["+tempArgCount+"] = "+args[tempArgCount]);
+                   tempArgCount++; 
+                   for(int i = 0; i < iterations; i = i + 2){
+                        //System.out.println(i+" "+Integer.parseInt(args[tempArgCount])+" "+args[tempArgCount+1]);
+                        parameters.DefineMol(TM,Integer.parseInt(args[tempArgCount]),args[tempArgCount+1]);
+                        for(int j = 0; j < Integer.parseInt(args[tempArgCount]); j++){
+                            //System.out.println("args[tempArgCount+1]="+args[tempArgCount+1]);
+                            TM.nMolNames[nMolNames] = args[tempArgCount+1];
+                            TM.sitesMolIdx[nMolNames] = TM.sitesMol[TM.nMolTypes];
+                            TM.vdwPointIdx[nMolNames] = TM.vdwPoint[TM.nMolTypes];
+                            nMolNames++;
+                        }
+                        TM.nMolTypes++;
+                        tempArgCount = tempArgCount + 2;
+                   }
+                   for(int i = 0; i < TM.nMol; i++){
+                       TM.sitesNoVDW = TM.sitesNoVDW + TM.sitesMolIdx[i] - TM.vdwPointIdx[i];
+                   }
+                   // Added up to here
+                   // System.out.print("Molnames: ");
+                   //for(int i = 0; i < TM.nMol; i++){System.out.print(TM.nMolNames[i]+" ");}
+                   // System.out.println();
+                   // System.out.println("moleculeTypeIndex output.");
+                   //for(int i = 0; i < TM.moleculeTypeIndex.length; i++){System.out.println(i+" "+TM.moleculeTypeIndex[i]);}
+                   // System.out.println("rmx, rmy and rmz output.");
+                   //for(int i = 0; i < TM.totalSitesNumber; i++){System.out.printf("%d % 3.4f % 3.4f % 3.4f %d %d\n",i,TM.rmx[i],TM.rmy[i],TM.rmz[i],TM.typeF[i],TM.atomType[i]);}                  
+                   RandomGenerate(TM, randomSeed, args[1]); // args[8] is the seed to reproduce random number generation.
+                   writeRestartIn(TM);
+                   //System.out.println("Restart file "+args[2]+"_0.rst has been created.");
+               }else{
+                  System.out.println("Wrong number of parameters. Check instructions.");
+               }
+            }else if(args[1].equals("-crystal")){
                super.openOutputWriter(args[2]+"_0.rst");
                pout = super.PW;
                TM.restartCount = 0;
@@ -62,7 +148,7 @@ public class restart extends file {
                parameters.DefinePar(TM,args[4]);
                TM.initMatrix();
                parameters.DefineMol(TM,args[4]);
-               TM.density = Double.parseDouble(args[5])*(TM.density_convFact);
+               TM.density = Double.parseDouble(args[5])*(TM.density_convFact[0]);
                TM.initUcellX = Integer.parseInt(args[6]);
                TM.initUcellY = Integer.parseInt(args[7]);
                TM.initUcellZ = Integer.parseInt(args[8]);
@@ -71,24 +157,20 @@ public class restart extends file {
                TM.regionZ = TM.initUcellZ/Math.cbrt(TM.density);
                RandomGenerate(TM, Long.parseLong(args[9]), args[1]);  // args[9] is the seed to reproduce random number generation.
                writeRestartIn(TM);
-         }else if(args[1].equals("-psf")){
+            }else if(args[1].equals("-psf")){
                TM.restartIn = args[2];
                ReadRestartHeader(TM);
-               TM.initMatrix();
-               parameters.DefineMol(TM,TM.molType);
                ReadRestartFile(TM);
                PSF = new psf(args[2].substring(0,args[2].length()-4)+".psf");
                PSF.createPSFFile(TM);
-         }else if(args[1].equals("-crd")){
+            }else if(args[1].equals("-crd")){
                TM.restartIn = args[2];
                ReadRestartHeader(TM);
-               TM.initMatrix();
-               parameters.DefineMol(TM,TM.molType);
                ReadRestartFile(TM);
                GenSiteCoord(TM);
                CRD = new crd(args[2].substring(0,args[2].length()-4)+".crd");
-               CRD.createCRDFile(TM);
-         }else if(args[1].equals("-gro")){
+               CRD.createCRDFile2(TM);
+            }else if(args[1].equals("-gro")){
                TM.restartIn = args[2];
                ReadRestartHeader(TM);
                TM.initMatrix();
@@ -97,14 +179,14 @@ public class restart extends file {
                GenSiteCoord(TM);
                GRO = new gro(args[2].substring(0,args[2].length()-4)+".gro");
                GRO.createGROFile(TM);
-         }else if(args[1].equals("-rescale")){
+            }else if(args[1].equals("-rescale")){
                //ReadRestartFile(TM);
                //TM.oldDensity = TM.density;
                //TM.set_molType_sitesMol(args[4]);
                //TM.density = Double.parseDouble(args[5]);
                //Rescale(TM);
-         }
-      }
+	    }
+	 }
     }
     public void setOutputFile(String out){
          file_out = out;
@@ -112,6 +194,7 @@ public class restart extends file {
          pout = super.PW;
     }
     public void Rescale(TheMatrix TM){
+         // TODO: Needs to check again due to changes in the code
          double volume2, regionX2, regionY2, regionZ2;
          TM.regionX = (1/Math.pow(TM.density,pwer))*TM.initUcellX;
          TM.regionY = (1/Math.pow(TM.density,pwer))*TM.initUcellY;
@@ -149,13 +232,13 @@ public class restart extends file {
                 if(i == 0){
                     pout.println("STEP "+TM.stepCount+" "+TM.restartCount);
                 }else if(i == 1){
-                    pout.println("MOLECULES "+TM.nMol+" "+TM.molType);
+                    pout.println("MOLECULES "+molecules);
                 }else if(i == 2){
-                    pout.println("BOX "+(TM.regionX*TM.ro)+" "+(TM.regionY*TM.ro)+" "+(TM.regionZ*TM.ro));
+                    pout.println("BOX "+(TM.regionX*TM.ro[0])+" "+(TM.regionY*TM.ro[0])+" "+(TM.regionZ*TM.ro[0]));
                 }else if(i == 3){
                     pout.println("COORDS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
                     for(int j = 0; j < TM.nMol; j++){
-                        pout.println(j+" "+(TM.rx[j]*TM.ro)+" "+(TM.ry[j]*TM.ro)+" "+(TM.rz[j]*TM.ro));
+                        pout.println(j+" "+(TM.rx[j]*TM.ro[0])+" "+(TM.ry[j]*TM.ro[0])+" "+(TM.rz[j]*TM.ro[0]));
                     }
                 }else if(i == 4){
                     pout.println("VELS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
@@ -194,13 +277,13 @@ public class restart extends file {
                 if(i == 0){
                     pout.println("STEP "+TM.stepCount+" "+TM.restartCount);
                 }else if(i == 1){
-                    pout.println("MOLECULES "+TM.nMol+" "+TM.molType);
+                    pout.println("MOLECULES "+molecules);
                 }else if(i == 2){
-                    pout.println("BOX "+(TM.regionX*TM.ro)+" "+(TM.regionY*TM.ro)+" "+(TM.regionZ*TM.ro));
+                    pout.println("BOX "+(TM.regionX*TM.ro[0])+" "+(TM.regionY*TM.ro[0])+" "+(TM.regionZ*TM.ro[0]));
                 }else if(i == 3){
                     pout.println("COORDS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
                     for(int j = 0; j < TM.nMol; j++){
-                        pout.println(j+" "+(TM.rx[j]*TM.ro)+" "+(TM.ry[j]*TM.ro)+" "+(TM.rz[j]*TM.ro));
+                        pout.println(j+" "+(TM.rx[j]*TM.ro[0])+" "+(TM.ry[j]*TM.ro[0])+" "+(TM.rz[j]*TM.ro[0]));
                     }
                 }else if(i == 4){
                     pout.println("VELS n= "+TM.nMol+" x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)");
@@ -242,6 +325,9 @@ public class restart extends file {
             dFile = new BufferedReader( FR );
             int index = 0;
             int nmol = 0;
+            int iterations, tempArgCount, nMolNames;
+            String numTypes;
+            String[] args;
             while( ( line = dFile.readLine( ) ) != null ){
                 StringTokenizer token = new StringTokenizer(line);
                 StringTokenizer token2;
@@ -251,15 +337,65 @@ public class restart extends file {
                    TM.stepLimit = TM.stepLimit + TM.stepCount;
                    TM.restartCount = Integer.parseInt(token.nextToken());
                 }else if(temp.equals("BOX")){
-                   TM.regionX = Double.parseDouble(token.nextToken())/TM.ro;
-                   TM.regionY = Double.parseDouble(token.nextToken())/TM.ro;
-                   TM.regionZ = Double.parseDouble(token.nextToken())/TM.ro;
+                   TM.regionX = Double.parseDouble(token.nextToken())/TM.ro[0];
+                   TM.regionY = Double.parseDouble(token.nextToken())/TM.ro[0];
+                   TM.regionZ = Double.parseDouble(token.nextToken())/TM.ro[0];
                    TM.volume = TM.regionX*TM.regionY*TM.regionZ;
                 }else if(temp.equals("MOLECULES")){
-                   TM.nMol = Integer.parseInt(token.nextToken());
-                   parameters.DefinePar(TM,token.nextToken());
-                }else{}
+                   numTypes = token.nextToken();
+                   TM.initParams(Integer.parseInt(numTypes));
+                   iterations = Integer.parseInt(numTypes)*2;
+                   TM.nMol = 0;
+                   TM.nMolTypes = 0;
+                   tempArgCount = 0;
+                   args = new String[iterations];
+                   for(int i = 0; i < iterations; i++){
+                       args[i] = token.nextToken();
+                   }
+                   molecules = numTypes;
+                   argCount = 0;
+                   for(int i = 0; i < iterations; i = i + 2){
+                       molecules = molecules+" "+args[argCount]+" "+args[argCount+1];
+                       parameters.DefinePar(TM,args[argCount+1]);
+                       TM.moleculeTypeIndex[i] = TM.totalSitesNumber;
+                       TM.moleculeTypeIndex[i+1] = TM.totalSitesNumber + (Integer.parseInt(args[argCount])*TM.sitesMol[TM.nMolTypes]);
+                       TM.totalSitesNumber = TM.totalSitesNumber + (Integer.parseInt(args[argCount])*TM.sitesMol[TM.nMolTypes]);
+                       TM.nMol = TM.nMol + Integer.parseInt(args[argCount]);
+                       TM.nMolTypes++;
+                       argCount = argCount + 2;
+                   }
+                   //System.out.println("TM.sitesNoVDW="+TM.sitesNoVDW);
+                   //TM.regionX = Double.parseDouble(args[3])/TM.ro[0];    // Box X
+                   //TM.regionY = Double.parseDouble(args[4])/TM.ro[0];    // Box Y
+                   //TM.regionZ = Double.parseDouble(args[5])/TM.ro[0];    // Box Z
+                   TM.initMatrix();
+                   //System.out.println("init velMag="+TM.velMag);
+                   TM.nMolTypes = 0;
+                   nMolNames = 0;
+                   for(int i = 0; i < iterations; i = i + 2){
+                        parameters.DefineMol(TM,Integer.parseInt(args[tempArgCount]),args[tempArgCount+1]);
+                        for(int j = 0; j < Integer.parseInt(args[tempArgCount]); j++){
+                            TM.nMolNames[nMolNames] = args[tempArgCount+1];
+                            TM.sitesMolIdx[nMolNames] = TM.sitesMol[TM.nMolTypes];
+                            TM.vdwPointIdx[nMolNames] = TM.vdwPoint[TM.nMolTypes];
+                            nMolNames++;
+                        }
+                        TM.nMolTypes++;
+                        tempArgCount = tempArgCount + 2;
+                   }
+                   for(int i = 0; i < TM.nMol; i++){
+                       TM.sitesNoVDW = TM.sitesNoVDW + TM.sitesMolIdx[i] - TM.vdwPointIdx[i];
+                   }
+                   // TODO: ATOMTYPE AND TYPEF ARE IDENTICAL.. CHECK AND ELIMINATE REDUNDANCY.
+                   //System.out.println("# atomType typeF");
+                   //for(int i = 0; i < TM.sitesMolIdx.length; i++){
+                   //   System.out.println(i+" "+TM.nMol+" "+TM.sitesMolIdx[i]);
+                   //System.out.printf("%d % .3f % .3f % .3f % .3f % .3f\n",i,TM.atomType[i],TM.typeF[i],TM.rxs[i],TM.rys[i],TM.rzs[i]);
+                   //  System.out.println(i+" "+TM.atomType[i]+" "+TM.typeF[i]+" "+TM.rxs[i]+" "+TM.rys[i]+" "+TM.rzs[i]);
+                   //}
+                   // System.out.println("TM.sitesNoVDW = "+TM.sitesNoVDW+" TM.totalSitesNumber = "+TM.totalSitesNumber);
              }
+           }
         }catch( IOException e ){System.err.println( e );}
     }
     public void ReadRestartFile(TheMatrix TM){
@@ -283,10 +419,10 @@ public class restart extends file {
                         line = dFile.readLine( );
                         token2 = new StringTokenizer(line);
                            temp = token2.nextToken();
-                           TM.rx[i] = Double.parseDouble(token2.nextToken())/TM.ro;
-                           TM.ry[i] = Double.parseDouble(token2.nextToken())/TM.ro;
-                           TM.rz[i] = Double.parseDouble(token2.nextToken())/TM.ro;
-                    }
+                           TM.rx[i] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+                           TM.ry[i] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+                           TM.rz[i] = Double.parseDouble(token2.nextToken())/TM.ro[0];
+		    }
                 }else if(temp.equals("VELS")){
                     temp = token.nextToken();
                     nmol = Integer.parseInt(token.nextToken());
@@ -395,50 +531,72 @@ public class restart extends file {
              // gen Accelerations
              TM.rax[n] = TM.ray[n] = TM.raz[n] = 0.0;
              // gen AngCoordinates
-             if(generator.nextDouble() < 0.5){xrt = -1*generator.nextDouble();}else{xrt = generator.nextDouble();}
-             if(generator.nextDouble() < 0.5){yrt = -1*generator.nextDouble();}else{yrt = generator.nextDouble();}
-             if(generator.nextDouble() < 0.5){zrt = -1*generator.nextDouble();}else{zrt = generator.nextDouble();}
-             eAngx = Math.atan2(xrt,yrt);
-             eAngy = Math.acos(zrt);
-             eAngz = 2*generator.nextDouble()*Math.PI;
-             a1 = 0.5 * eAngy;
-             a2 = 0.5 * (eAngx - eAngz);
-             a3 = 0.5 * (eAngx + eAngz);
-             TM.q_u1[n] = Math.sin(a1) * Math.cos(a2);
-             TM.q_u2[n] = Math.sin(a1) * Math.sin(a2);
-             TM.q_u3[n] = Math.cos(a1) * Math.sin(a3);
-             TM.q_u4[n] = Math.cos(a1) * Math.cos(a3);
+             if(TM.nMolNames[n].equalsIgnoreCase("wt0LJ") || TM.nMolNames[n].equalsIgnoreCase("wt1LJ")  || TM.nMolNames[n].equalsIgnoreCase("wt2LJ")  || TM.nMolNames[n].equalsIgnoreCase("wt3LJ")){
+                TM.rMatT[n*9+0] = 0;   TM.rMatT[n*9+4] = 0;   TM.rMatT[n*9+8] = 0;
+                TM.rMatT[n*9+1] = 0;   TM.rMatT[n*9+3] = 0;   TM.rMatT[n*9+2] = 0;
+                TM.rMatT[n*9+6] = 0;   TM.rMatT[n*9+5] = 0;   TM.rMatT[n*9+7] = 0;
+                TM.wvx[n] = 0;     TM.wvy[n] = 0;    TM.wvz[n] = 0;
+                TM.wax[n] = TM.way[n] = TM.waz[n] = 0.0;
+             }else if(TM.nMolNames[n].equalsIgnoreCase("wt4LJ") || TM.nMolNames[n].equalsIgnoreCase("wt5LJ")  || TM.nMolNames[n].equalsIgnoreCase("wt6LJ")  || TM.nMolNames[n].equalsIgnoreCase("wt7LJ")){
+                TM.rMatT[n*9+0] = 0;   TM.rMatT[n*9+4] = 0;   TM.rMatT[n*9+8] = 0;
+                TM.rMatT[n*9+1] = 0;   TM.rMatT[n*9+3] = 0;   TM.rMatT[n*9+2] = 0;
+                TM.rMatT[n*9+6] = 0;   TM.rMatT[n*9+5] = 0;   TM.rMatT[n*9+7] = 0;
+                TM.wvx[n] = 0;     TM.wvy[n] = 0;    TM.wvz[n] = 0;
+                TM.wax[n] = TM.way[n] = TM.waz[n] = 0.0;
+             }else if(TM.nMolNames[n].equalsIgnoreCase("wt8LJ") || TM.nMolNames[n].equalsIgnoreCase("wt9LJ")  || TM.nMolNames[n].equalsIgnoreCase("wtXLJ")){
+                TM.rMatT[n*9+0] = 0;   TM.rMatT[n*9+4] = 0;   TM.rMatT[n*9+8] = 0;
+                TM.rMatT[n*9+1] = 0;   TM.rMatT[n*9+3] = 0;   TM.rMatT[n*9+2] = 0;
+                TM.rMatT[n*9+6] = 0;   TM.rMatT[n*9+5] = 0;   TM.rMatT[n*9+7] = 0;
+                TM.wvx[n] = 0;     TM.wvy[n] = 0;    TM.wvz[n] = 0;
+                TM.wax[n] = TM.way[n] = TM.waz[n] = 0.0;
+             }else{
+                if(generator.nextDouble() < 0.5){xrt = -1*generator.nextDouble();}else{xrt = generator.nextDouble();}
+                if(generator.nextDouble() < 0.5){yrt = -1*generator.nextDouble();}else{yrt = generator.nextDouble();}
+                if(generator.nextDouble() < 0.5){zrt = -1*generator.nextDouble();}else{zrt = generator.nextDouble();}
+                eAngx = Math.atan2(xrt,yrt);
+                eAngy = Math.acos(zrt);
+                eAngz = 2*generator.nextDouble()*Math.PI;
+                a1 = 0.5 * eAngy;
+                a2 = 0.5 * (eAngx - eAngz);
+                a3 = 0.5 * (eAngx + eAngz);
+                TM.q_u1[n] = Math.sin(a1) * Math.cos(a2);
+                TM.q_u2[n] = Math.sin(a1) * Math.sin(a2);
+                TM.q_u3[n] = Math.cos(a1) * Math.sin(a3);
+                TM.q_u4[n] = Math.cos(a1) * Math.cos(a3);
 
-             tq[0] = TM.q_u1[n];  tq[1] = TM.q_u2[n];  tq[2] = TM.q_u3[n];    tq[3] = TM.q_u4[n];
-             for(k = 0, k2 = 0; k2 < 4; k2++){
-                 for(k1 = k2; k1 < 4; k1++, k++){
-                     p[k] = 2.0*tq[k1]*tq[k2];
-                 }
+                tq[0] = TM.q_u1[n];  tq[1] = TM.q_u2[n];  tq[2] = TM.q_u3[n];    tq[3] = TM.q_u4[n];
+                for(k = 0, k2 = 0; k2 < 4; k2++){
+                    for(k1 = k2; k1 < 4; k1++, k++){
+                        p[k] = 2.0*tq[k1]*tq[k2];
+                    }
+                }
+                TM.rMatT[n*9+0] = p[0] + p[9] - 1;   TM.rMatT[n*9+4] = p[4] + p[9] - 1;   TM.rMatT[n*9+8] = p[7] + p[9] - 1;
+                s = 1.0;    //Transpose = 1
+                TM.rMatT[n*9+1] = p[1] + s * p[8];   TM.rMatT[n*9+3] = p[1] - s * p[8];   TM.rMatT[n*9+2] = p[2] - s * p[6];
+                TM.rMatT[n*9+6] = p[2] + s * p[6];   TM.rMatT[n*9+5] = p[5] + s * p[3];   TM.rMatT[n*9+7] = p[5] - s * p[3];
+                //gen AngVelocities
+                if(generator.nextDouble() < 0.5){TM.wvx[n] = -1*generator.nextDouble();}else{TM.wvx[n] = generator.nextDouble();}
+                if(generator.nextDouble() < 0.5){TM.wvy[n] = -1*generator.nextDouble();}else{TM.wvy[n] = generator.nextDouble();}
+                if(generator.nextDouble() < 0.5){TM.wvz[n] = -1*generator.nextDouble();}else{TM.wvz[n] = generator.nextDouble();}
+                TM.wax[n] = TM.way[n] = TM.waz[n] = 0.0;
              }
-             TM.rMatT[n*9+0] = p[0] + p[9] - 1;   TM.rMatT[n*9+4] = p[4] + p[9] - 1;   TM.rMatT[n*9+8] = p[7] + p[9] - 1;
-             s = 1.0;    //Transpose = 1
-             TM.rMatT[n*9+1] = p[1] + s * p[8];   TM.rMatT[n*9+3] = p[1] - s * p[8];   TM.rMatT[n*9+2] = p[2] - s * p[6];
-             TM.rMatT[n*9+6] = p[2] + s * p[6];   TM.rMatT[n*9+5] = p[5] + s * p[3];   TM.rMatT[n*9+7] = p[5] - s * p[3];
-             //gen AngVelocities
-             if(generator.nextDouble() < 0.5){TM.wvx[n] = -1*generator.nextDouble();}else{TM.wvx[n] = generator.nextDouble();}
-             if(generator.nextDouble() < 0.5){TM.wvy[n] = -1*generator.nextDouble();}else{TM.wvy[n] = generator.nextDouble();}
-             if(generator.nextDouble() < 0.5){TM.wvz[n] = -1*generator.nextDouble();}else{TM.wvz[n] = generator.nextDouble();}
-             TM.wax[n] = TM.way[n] = TM.waz[n] = 0.0;
         }
      }
 
     public void GenSiteCoord(TheMatrix TM){
         double tx, ty, tz;
+        int index = 0;
         for(int n = 0; n < TM.nMol; n++){
-            for(int j = 0; j < TM.sitesMol; j++){
+            for(int j = 0; j < TM.sitesMolIdx[n]; j++){
                 tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                 ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                 tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                TM.rxs[index + j] = TM.rx[n] + tx;
+                TM.rys[index + j] = TM.ry[n] + ty;
+                TM.rzs[index + j] = TM.rz[n] + tz;
             }
+            index = index + TM.sitesMolIdx[n];
         }
     }
     private void command_description(){
@@ -446,16 +604,25 @@ public class restart extends file {
             System.out.println("               Water molecules are placed randomly in the box and it requires minimization.");
             System.out.println("               Follow the -random command by");
             System.out.println("               1) A file name for the restart file to be created in current directory.");
-            System.out.println("               2) Number of water molecules.");
-            System.out.println("               3) Water molecule type: tip3p, tip4p, tip5p, ST2.");
-            System.out.println("               4) Leng of X box side.");
-            System.out.println("               5) Leng of Y box side.");
-            System.out.println("               6) Leng of Z box side.");
-            System.out.println("               7) a seed for random generation of coordinates(from -2^63 to 2^63-1). This will allow reproducibility of initial configurations.");
+            System.out.println("               2) Leng of X box side.");
+            System.out.println("               3) Leng of Y box side.");
+            System.out.println("               4) Leng of Z box side.");
+            System.out.println("               5) a seed for random generation of coordinates(from -2^63 to 2^63-1). This will allow reproducibility of initial configurations.");
             System.out.println("               -- All the atoms in the molecule are inside the box. This is specially important for simulations with walls.");
             System.out.println("               -- Rotational and translational Velocities are asigned random values between -1 and 1 for XYZ. Scaling to");
             System.out.println("                  the right temperatures will be done before the simulation's equilibration or production run.");
             System.out.println("               -- All randomly generated systems should be followed by minimization before production run.");
+            System.out.println("               6) Number of types of molecules. This allows adding different types of rigid molecules or monoatomic gases to be mixed in");
+            System.out.println("                  simulation box. For example, a gas and water. Methane and water, or even two or more different water models.");
+            System.out.println("               The number of parameters after (6) depends of the number of different molecules added to the box. For each type of molecule");
+            System.out.println("               two more parameters are added.");
+            System.out.println("               6+1) Number of atoms or molecules for the first molecule type.");
+            System.out.println("               6+2) First molecule type: watLJ, tip3p, tip4p, tip5p, ST2.");
+            System.out.println("               6+3) Number of atoms or molecules for the second molecule type.");
+            System.out.println("               6+4) Second molecule type: watLJ, tip3p, tip4p, tip5p, ST2.");
+            System.out.println("               .....");
+            System.out.println("               6+n) Number of atoms or molecules for the n molecule type.");
+            System.out.println("               6+n) n molecule type: watLJ, tip3p, tip4p, tip5p, ST2.");
             System.out.println("   -crystal    It generates a restart file from scratch using deisred density(gm/cm^3) and number of waters only.");
             System.out.println("               unitCellX x unitCellY x unitCellZ must be equal to number of water molecules for this approach to make sense.");
             System.out.println("               Follow the -crystal command by");

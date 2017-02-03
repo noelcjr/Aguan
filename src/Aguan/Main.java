@@ -14,6 +14,7 @@ import Aguan.Methods.rotateTranslateOneWaterTest;
 import Aguan.Methods.pr_08_4;
 import Aguan.files.compareFiles;
 import Aguan.files.checkGromacs;
+import Aguan.files.checkCHARMM;
 import Aguan.ntraj.ntraj;
 import Aguan.parameters;
 import java.util.*;
@@ -26,6 +27,7 @@ public class Main {
     private rigidLeapFrogBerenTV RLFBTV;           private minimization min;
     private shakeLeapFrogBerenTP SLFBTP;           private compareFiles cf;
     private ntraj ntj;                             private checkGromacs cG;
+    private checkCHARMM cC;
     private pr_08_4 p84;
     public Main(String[] args){
                  if(args[0].equals("-s")){
@@ -35,6 +37,7 @@ public class Main {
            }else if(args[0].equals("-o")){
                     //tt = new generateMolecularOrientationTest(TM);
            }else if(args[0].equals("-r")){
+                    // This option is marked for deletion.
                     //tt2 = new rotateTranslateOneWaterTest(TM);
            }else if(args[0].equals("-c")){
                     RR = new restart(args); 
@@ -45,7 +48,8 @@ public class Main {
            }else if(args[0].equals("-n")){
                     ntj = new ntraj(args);
            }else if(args[0].equals("-v")){
-                    cG = new checkGromacs(args);
+                    //cG = new checkGromacs(args);
+                    cC = new checkCHARMM(args);
            }else if(args[0].equals("-z")){
                     p84 = new pr_08_4(args);
            }else{

@@ -21,8 +21,8 @@ public class orientation{
         TM.q51 = TM.q52 = TM.q53 = TM.q410 = TM.q421 = TM.q430 = TM.q432 = 0;
         TM.q510 = TM.q521 = TM.q530 = TM.q532 = 0;
         double[] rx2, ry2, rz2;
-        rx2 = new double[TM.sitesMol];   ry2 = new double[TM.sitesMol];
-        rz2 = new double[TM.sitesMol];
+        rx2 = new double[TM.sitesMol[0]];   ry2 = new double[TM.sitesMol[0]];
+        rz2 = new double[TM.sitesMol[0]];
         double tx, ty, tz;
         double tvx, tvy, tvz, rvx, rvy, rvz;
         tvx = tvy = tvz = rvx = rvy = rvz = 0;
@@ -32,7 +32,7 @@ public class orientation{
                    //System.out.println(n+" "+TM.rvx[n]+" "+TM.rvy[n]+" "+TM.rvz[n]);
             tvx = tvx + TM.rvx[n];   tvy = tvy + TM.rvy[n];  tvz = tvz + TM.rvz[n];
             rvx = rvx + TM.wvx[n];   rvy = rvy + TM.wvy[n];  rvz = rvz + TM.wvz[n];
-            for(int m = 0; m < TM.sitesMol; m++){
+            for(int m = 0; m < TM.sitesMol[0]; m++){
                 tx = TM.rMatT[(n*9)+0]*TM.rmx[m] + TM.rMatT[(n*9)+3]*TM.rmy[m] + TM.rMatT[(n*9)+6]*TM.rmz[m];
                 ty = TM.rMatT[(n*9)+1]*TM.rmx[m] + TM.rMatT[(n*9)+4]*TM.rmy[m] + TM.rMatT[(n*9)+7]*TM.rmz[m];
                 tz = TM.rMatT[(n*9)+2]*TM.rmx[m] + TM.rMatT[(n*9)+5]*TM.rmy[m] + TM.rMatT[(n*9)+8]*TM.rmz[m];

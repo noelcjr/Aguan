@@ -10,11 +10,11 @@ echo "density 1gr/cm^3"
 echo "Directory Tests:"
 echo "Electric_Fields  Temperature_Gradient  Thermostats  XYZ_Walls  Z_Walls"
 cd Thermostats
-java -jar $a -c -random tip3p_T1 216 tip3p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip3p_T1 1.8662 1.8662 1.8662 0 1 216 tip3p
 java -jar $a -m tip3p_T1.in 0 500
-java -jar $a -c -random tip4p_T1 216 tip4p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip4p_T1 1.8662 1.8662 1.8662 0 1 216 tip4p
 java -jar $a -m tip4p_T1.in 0 500
-java -jar $a -c -random tip5p_T1 216 tip5p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip5p_T1 1.8662 1.8662 1.8662 0 1 216 tip5p
 java -jar $a -m tip5p_T1.in 0 500
 java -jar $a -c -psf tip3p_T1_0.rst
 mv tip3p_T1_0.psf ../
@@ -64,11 +64,11 @@ java -jar $a -s tip5p_0.01TG_T2.in 1 1000
 echo "End of Temperature Gradient test"
 echo "6 ########################################################"
 cd ../XYZ_Walls
-java -jar $a -c -random tip3p_xyzWBC_0W 216 tip3p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip3p_xyzWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip3p
 java -jar $a -m tip3p_xyzWBC_0W.in 0 500
-java -jar $a -c -random tip4p_xyzWBC_0W 216 tip4p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip4p_xyzWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip4p
 java -jar $a -m tip4p_xyzWBC_0W.in 0 500
-java -jar $a -c -random tip5p_xyzWBC_0W 216 tip5p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip5p_xyzWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip5p
 java -jar $a -m tip5p_xyzWBC_0W.in 0 500
 
 java -jar $a -s tip3p_xyzWBC_0W.in 1 1000
@@ -77,11 +77,11 @@ java -jar $a -s tip5p_xyzWBC_0W.in 1 1000
 echo "End of xyz wall 0 Boundary Condition test"
 echo "7  ######################################################"
 cd ../Z_Walls
-java -jar $a -c -random tip3p_zWBC_0W 216 tip3p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip3p_zWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip3p
 java -jar $a -m tip3p_zWBC_0W.in 0 500
-java -jar $a -c -random tip4p_zWBC_0W 216 tip4p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip4p_zWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip4p
 java -jar $a -m tip4p_zWBC_0W.in 0 500
-java -jar $a -c -random tip5p_zWBC_0W 216 tip5p 1.8662 1.8662 1.8662 0
+java -jar $a -c -random tip5p_zWBC_0W 1.8662 1.8662 1.8662 0 1 216 tip5p
 java -jar $a -m tip5p_zWBC_0W.in 0 500
 
 java -jar $a -s tip3p_zWBC_0W.in 1 1000

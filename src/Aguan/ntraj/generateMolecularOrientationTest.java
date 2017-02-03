@@ -31,13 +31,13 @@ public class generateMolecularOrientationTest {
     }
     public void SetParams(TheMatrix TM){
         if(TM.molType.equalsIgnoreCase("tip3p")){
-           TM.sitesMol = 4;
+           TM.sitesMol[0] = 4;
         }else if(TM.molType.equalsIgnoreCase("tip4p")){
-           TM.sitesMol = 4;
+           TM.sitesMol[0] = 4;
         }else if(TM.molType.equalsIgnoreCase("tip5p")){
-           TM.sitesMol = 5;
+           TM.sitesMol[0] = 5;
         }else if(TM.molType.equalsIgnoreCase("st2")){
-           TM.sitesMol = 5;
+           TM.sitesMol[0] = 5;
         }
         TM.NDIM = 3;
         TM.regionX = (1/Math.pow(TM.density,0.333333))*regionX;
@@ -54,7 +54,7 @@ public class generateMolecularOrientationTest {
         GenerateAllXYZ45_2(TM);
         System.out.println("Moltype:"+TM.molType);
         System.out.println("nMol:"+TM.nMol);
-        System.out.println("nMol:"+TM.sitesMol);
+        System.out.println("nMol:"+TM.sitesMol[0]);
  //     testRotMatrix(TM,PM);
         CRD.createCRDFile(TM);
         PSF.createPSFFile(TM);
@@ -107,15 +107,15 @@ public class generateMolecularOrientationTest {
                 LOG.lout.println("|"+TM.rMatT[0]+" "+TM.rMatT[1]+" "+TM.rMatT[2]+"|");
                 LOG.lout.println("|"+TM.rMatT[3]+" "+TM.rMatT[4]+" "+TM.rMatT[5]+"|");
                 LOG.lout.println("|"+TM.rMatT[6]+" "+TM.rMatT[7]+" "+TM.rMatT[8]+"|");
-                for(int j = 0; j < TM.sitesMol; j++){
+                for(int j = 0; j < TM.sitesMol[0]; j++){
                     tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                     ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                     tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                    TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                    TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                    TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
-                  //  LOG.lout.println(j+" = "+(TM.rxs[n*TM.sitesMol + j]*TM.ro)+" "+(TM.rys[n*TM.sitesMol + j]*TM.ro)+" "+(TM.rzs[n*TM.sitesMol + j]*TM.ro));
+                    TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                    TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                    TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
+                  //  LOG.lout.println(j+" = "+(TM.rxs[n*TM.sitesMol[0] + j]*TM.ro[0])+" "+(TM.rys[n*TM.sitesMol[0] + j]*TM.ro[0])+" "+(TM.rzs[n*TM.sitesMol[0] + j]*TM.ro[0]));
                 }           
                 tx = TM.wvx[n] + (n*0.1);
                 ty = TM.wvy[n];
@@ -125,14 +125,14 @@ public class generateMolecularOrientationTest {
                 TM.rMatT[n*9] = mt[0];    TM.rMatT[n*9+1] = mt[1];    TM.rMatT[n*9+2] = mt[2];
                 TM.rMatT[n*9+3] = mt[3];    TM.rMatT[n*9+4] = mt[4];    TM.rMatT[n*9+5] = mt[5];
                 TM.rMatT[n*9+6] = mt[6];    TM.rMatT[n*9+7] = mt[7];    TM.rMatT[n*9+8] = mt[8];
-                for(int j = 0; j < TM.sitesMol; j++){   // tip3p only
+                for(int j = 0; j < TM.sitesMol[0]; j++){   // tip3p only
                     tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                     ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                     tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
   
-                    TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                    TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                    TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                    TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                    TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                    TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
                 }
          }  
     }
@@ -168,14 +168,14 @@ public class generateMolecularOrientationTest {
               s = 1.0;    //Transpose = 1
               TM.rMatT[n*9+1] = p[1] + s * p[8];   TM.rMatT[n*9+3] = p[1] - s * p[8];   TM.rMatT[n*9+2] = p[2] - s * p[6];
               TM.rMatT[n*9+6] = p[2] + s * p[6];   TM.rMatT[n*9+5] = p[5] + s * p[3];   TM.rMatT[n*9+7] = p[5] - s * p[3];
-              for(int j = 0; j < TM.sitesMol; j++){
+              for(int j = 0; j < TM.sitesMol[0]; j++){
                   tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                   ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                   tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                  TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                  TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                  TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                  TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                  TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                  TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
               }                                                                   
               n++;
           }
@@ -222,26 +222,26 @@ public class generateMolecularOrientationTest {
                           s = 1.0;    //Transpose = 1
                           TM.rMatT[n*9+1] = p[1] + s * p[8];   TM.rMatT[n*9+3] = p[1] - s * p[8];   TM.rMatT[n*9+2] = p[2] - s * p[6];
                           TM.rMatT[n*9+6] = p[2] + s * p[6];   TM.rMatT[n*9+5] = p[5] + s * p[3];   TM.rMatT[n*9+7] = p[5] - s * p[3];
-                          for(int j = 0; j < TM.sitesMol; j++){
+                          for(int j = 0; j < TM.sitesMol[0]; j++){
                                 tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                                 ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                                 tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                                TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                                TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                                TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                                TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                                TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                                TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
                           }
-                          distHHx = (TM.rxs[n*TM.sitesMol+2]+TM.rxs[n*TM.sitesMol+3])/2;
-                          distHHy = (TM.rys[n*TM.sitesMol+2]+TM.rys[n*TM.sitesMol+3])/2;
-                          distHHz = (TM.rzs[n*TM.sitesMol+2]+TM.rzs[n*TM.sitesMol+3])/2;
+                          distHHx = (TM.rxs[n*TM.sitesMol[0]+2]+TM.rxs[n*TM.sitesMol[0]+3])/2;
+                          distHHy = (TM.rys[n*TM.sitesMol[0]+2]+TM.rys[n*TM.sitesMol[0]+3])/2;
+                          distHHz = (TM.rzs[n*TM.sitesMol[0]+2]+TM.rzs[n*TM.sitesMol[0]+3])/2;
                      //     LOG.lout.println("    (1,0,0)*|"+Format.format(TM.rMatT[n*9+0])+" "+Format.format(TM.rMatT[n*9+1])+" "+Format.format(TM.rMatT[n*9+2])+"|");
                      //     LOG.lout.println("            |"+Format.format(TM.rMatT[n*9+3])+" "+Format.format(TM.rMatT[n*9+4])+" "+Format.format(TM.rMatT[n*9+5])+"|");
                      //     LOG.lout.println("            |"+Format.format(TM.rMatT[n*9+6])+" "+Format.format(TM.rMatT[n*9+7])+" "+Format.format(TM.rMatT[n*9+8])+"|");
                      //     LOG.lout.println("    =("+Format.format((1*TM.rMatT[n*9+0]))+","+Format.format((1*TM.rMatT[n*9+1]))+","+Format.format((1*TM.rMatT[n*9+2]))+") => ");
                      //     LOG.lout.print("Quadrant = "+getQuadrant(1*TM.rMatT[n*9+0],1*TM.rMatT[n*9+1],1*TM.rMatT[n*9+2]));
-                          LOG.lout.print("  Water Vector "+n+" = ("+Format.format(distHHx*TM.ro)+","+Format.format(distHHy*TM.ro)+","+Format.format(distHHz*TM.ro)+")");
-                          LOG.lout.println("Q0 = "+getQuadrant(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro)+"   Q1 = "+getQuadrant1(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro));
-               //           LOG.lout.println("   Quadrant2 = "+getQuadrant2(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro));
+                          LOG.lout.print("  Water Vector "+n+" = ("+Format.format(distHHx*TM.ro[0])+","+Format.format(distHHy*TM.ro[0])+","+Format.format(distHHz*TM.ro[0])+")");
+                          LOG.lout.println("Q0 = "+getQuadrant(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0])+"   Q1 = "+getQuadrant1(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0]));
+               //           LOG.lout.println("   Quadrant2 = "+getQuadrant2(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0]));
                           LOG.lout.println("-------------------------------------------------------------------------------------------------");
                       }else{
                           LOG.lout.print(n +") "+x1+" "+z1+" "+x2+" - "+a+" "+b+" "+c);
@@ -266,26 +266,26 @@ public class generateMolecularOrientationTest {
                           TM.rMatT[n*9+1] = p[1] + s * p[8];   TM.rMatT[n*9+3] = p[1] - s * p[8];   TM.rMatT[n*9+2] = p[2] - s * p[6];
                           TM.rMatT[n*9+6] = p[2] + s * p[6];   TM.rMatT[n*9+5] = p[5] + s * p[3];   TM.rMatT[n*9+7] = p[5] - s * p[3];
 
-                          for(int j = 0; j < TM.sitesMol; j++){
+                          for(int j = 0; j < TM.sitesMol[0]; j++){
                                 tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                                 ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                                 tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                                TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                                TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                                TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                                TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                                TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                                TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
                           }
-                          distHHx = (TM.rxs[n*TM.sitesMol+2]+TM.rxs[n*TM.sitesMol+3])/2;
-                          distHHy = (TM.rys[n*TM.sitesMol+2]+TM.rys[n*TM.sitesMol+3])/2;
-                          distHHz = (TM.rzs[n*TM.sitesMol+2]+TM.rzs[n*TM.sitesMol+3])/2;
+                          distHHx = (TM.rxs[n*TM.sitesMol[0]+2]+TM.rxs[n*TM.sitesMol[0]+3])/2;
+                          distHHy = (TM.rys[n*TM.sitesMol[0]+2]+TM.rys[n*TM.sitesMol[0]+3])/2;
+                          distHHz = (TM.rzs[n*TM.sitesMol[0]+2]+TM.rzs[n*TM.sitesMol[0]+3])/2;
                           //     LOG.lout.println("    (1,0,0)*|"+Format.format(TM.rMatT[n*9+0])+" "+Format.format(TM.rMatT[n*9+1])+" "+Format.format(TM.rMatT[n*9+2])+"|");
                           //     LOG.lout.println("            |"+Format.format(TM.rMatT[n*9+3])+" "+Format.format(TM.rMatT[n*9+4])+" "+Format.format(TM.rMatT[n*9+5])+"|");
                           //     LOG.lout.println("            |"+Format.format(TM.rMatT[n*9+6])+" "+Format.format(TM.rMatT[n*9+7])+" "+Format.format(TM.rMatT[n*9+8])+"|");
                           //     LOG.lout.println("    =("+Format.format((1*TM.rMatT[n*9+0]))+","+Format.format((1*TM.rMatT[n*9+1]))+","+Format.format((1*TM.rMatT[n*9+2]))+") => ");
                           //     LOG.lout.print("Quadrant = "+getQuadrant(1*TM.rMatT[n*9+0],1*TM.rMatT[n*9+1],1*TM.rMatT[n*9+2]));
-                          LOG.lout.print("  Water Vector "+n+" = ("+Format.format(distHHx*TM.ro)+","+Format.format(distHHy*TM.ro)+","+Format.format(distHHz*TM.ro)+")");
-                          LOG.lout.println("Q0 = "+getQuadrant(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro)+"   Q1 = "+getQuadrant1(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro));
-                     //   LOG.lout.println("   Quadrant2 = "+getQuadrant2(distHHx*TM.ro,distHHy*TM.ro,distHHz*TM.ro));
+                          LOG.lout.print("  Water Vector "+n+" = ("+Format.format(distHHx*TM.ro[0])+","+Format.format(distHHy*TM.ro[0])+","+Format.format(distHHz*TM.ro[0])+")");
+                          LOG.lout.println("Q0 = "+getQuadrant(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0])+"   Q1 = "+getQuadrant1(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0]));
+                     //   LOG.lout.println("   Quadrant2 = "+getQuadrant2(distHHx*TM.ro[0],distHHy*TM.ro[0],distHHz*TM.ro[0]));
                           LOG.lout.println("-------------------------------------------------------------------------------------------------");
                       }
                       c++; n++;
@@ -465,9 +465,9 @@ public class generateMolecularOrientationTest {
     public void testWaterGeneratinQuadrantAllocation(TheMatrix TM){
         double rx, ry, rz;
         double[] rx2, ry2, rz2;
-        TM.sitesMol = 4;
-        rx2 = new double[TM.sitesMol];   ry2 = new double[TM.sitesMol];
-        rz2 = new double[TM.sitesMol];
+        TM.sitesMol[0] = 4;
+        rx2 = new double[TM.sitesMol[0]];   ry2 = new double[TM.sitesMol[0]];
+        rz2 = new double[TM.sitesMol[0]];
         double a1, a2, a3;
         double eAngx, eAngy, eAngz;
         int total1 = 0; int total2 = 0; int total3 = 0;
@@ -489,7 +489,7 @@ public class generateMolecularOrientationTest {
         double[] rMatT = new double[9];
         double[] rmx, rmy, rmz;
         rmx = new double[4]; rmy = new double[4]; rmz = new double[4];
-        for(int j = 0; j < TM.sitesMol; j++){
+        for(int j = 0; j < TM.sitesMol[0]; j++){
             rmx[j] = 0.0; rmy[j] = 0.0; rmz[j] = 0.0;
         }       
         rmy[2] = 0.2402;   rmz[2] = 0.186;
@@ -574,7 +574,7 @@ public class generateMolecularOrientationTest {
               s = -1.0;    //Transpose = 1
               rMatT[1] = p[1] + s * p[8];   rMatT[3] = p[1] - s * p[8];   rMatT[2] = p[2] - s * p[6];
               rMatT[6] = p[2] + s * p[6];   rMatT[5] = p[5] + s * p[3];   rMatT[7] = p[5] - s * p[3];
-              for(int j = 0; j < TM.sitesMol; j++){   // tip3p only
+              for(int j = 0; j < TM.sitesMol[0]; j++){   // tip3p only
                  tx = rMatT[0]*rmx[j] + rMatT[3]*rmy[j] + rMatT[6]*rmz[j];
                  ty = rMatT[1]*rmx[j] + rMatT[4]*rmy[j] + rMatT[7]*rmz[j];
                  tz = rMatT[2]*rmx[j] + rMatT[5]*rmy[j] + rMatT[8]*rmz[j];
@@ -641,7 +641,7 @@ public class generateMolecularOrientationTest {
                   rMatT[0] = mt[0];    rMatT[1] = mt[1];    rMatT[2] = mt[2];
                   rMatT[3] = mt[3];    rMatT[4] = mt[4];    rMatT[5] = mt[5];
                   rMatT[6] = mt[6];    rMatT[7] = mt[7];    rMatT[8] = mt[8];
-                  for(int j = 0; j < TM.sitesMol; j++){   // tip3p only
+                  for(int j = 0; j < TM.sitesMol[0]; j++){   // tip3p only
                       tx = rMatT[0]*rmx[j] + rMatT[3]*rmy[j] + rMatT[6]*rmz[j];
                       ty = rMatT[1]*rmx[j] + rMatT[4]*rmy[j] + rMatT[7]*rmz[j];
                       tz = rMatT[2]*rmx[j] + rMatT[5]*rmy[j] + rMatT[8]*rmz[j];
@@ -1215,49 +1215,49 @@ public class generateMolecularOrientationTest {
           }
     }
     public void DefineMol(TheMatrix TM, String name){
-        for(int j = 0; j < TM.sitesMol; j++){
+        for(int j = 0; j < TM.sitesMol[0]; j++){
             TM.rmx[j] = 0.0; TM.rmy[j] = 0.0; TM.rmz[j] = 0.0;
         }
         if(name.equalsIgnoreCase("tip3p")){
-           TM.bCon = 120.3995;
-           TM.ro = 3.15061;
-           TM.ep = 0.1521;
+           TM.bCon[0] = 120.3995;
+           TM.ro[0] = 3.15061;
+           TM.ep[0] = 0.1521;
            TM.rmz[0] = -0.0207;
            TM.rmz[1] = -0.0207;
            TM.rmy[2] = 0.2402;   TM.rmz[2] = 0.1653;
            TM.rmy[3] =-0.2402;   TM.rmz[3] = 0.1653;
            TM.typeF[0] = 1;   TM.typeF[1] = 2;    TM.typeF[2] = 3;    TM.typeF[3] = 3;
-           TM.nAtoms = 3;     TM.nCharges = 3;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 3;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+4){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+4){
                TM.atomType[j] = 1;
                TM.atomType[j+1] = 2;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 3;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("tip4p")){
-           TM.bCon = 183.6615;
-           TM.ro = 3.15365;
-           TM.ep = 0.1549;
+           TM.bCon[0] = 183.6615;
+           TM.ro[0] = 3.15365;
+           TM.ep[0] = 0.1549;
            TM.rmz[0] =-0.02065;
            TM.rmz[1] = 0.02695;
            TM.rmy[2] = 0.2400;    TM.rmz[2] = 0.1652;
            TM.rmy[3] = -0.2400;   TM.rmz[3] = 0.1652;
            TM.typeF[0] = 1;   TM.typeF[1] = 2;    TM.typeF[2] = 3;    TM.typeF[3] = 3;
-           TM.nAtoms = 3;      TM.nCharges = 3;
+           TM.nAtoms[0] = 3;      TM.nCharges[0] = 3;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+4){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+4){
                TM.atomType[j] = 1;
                TM.atomType[j+1] = 2;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 3;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("tip5p")){
-           TM.bCon = 39.4567;
-           TM.ro = 3.1200;
-           TM.ep = 0.1599;
+           TM.bCon[0] = 39.4567;
+           TM.ro[0] = 3.1200;
+           TM.ep[0] = 0.1599;
            TM.rmz[0] = -0.0209;
            TM.rmy[1] = 0.2426;   TM.rmz[1] = 0.1669;
            TM.rmy[2] =-0.2426;   TM.rmz[2] = 0.1669;
@@ -1265,36 +1265,36 @@ public class generateMolecularOrientationTest {
            TM.rmx[4] =-0.1832;   TM.rmz[4] = -0.1504;
            TM.typeF[0] = 1;   TM.typeF[1] = 3;    TM.typeF[2] = 3;
            TM.typeF[3] = 7;   TM.typeF[4] = 7;
-           TM.nAtoms = 3;     TM.nCharges = 4;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 4;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+5){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+5){
                TM.atomType[j] = 2;
                TM.atomType[j+1] = 3;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 4;
                TM.atomType[j+4] = 4;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("st2")){
-           TM.bCon = 4.5224;
-           TM.ro = 3.1000;
-           TM.ep =0.0757;
+           TM.bCon[0] = 4.5224;
+           TM.ro[0] = 3.1000;
+           TM.ep[0] =0.0757;
            TM.rmx[0] = -0.0207;
            TM.rmy[1] = 0.263;   TM.rmz[1] = 0.1656;
            TM.rmy[2] =-0.263;   TM.rmz[2] = 0.1656;
            TM.rmx[3] = 0.2107;  TM.rmz[3] =-0.1697;
            TM.rmx[4] =-0.2107;  TM.rmz[4] =-0.1697;
            TM.typeF[0] = 1;   TM.typeF[1] = 3;    TM.typeF[2] = 3;    TM.typeF[3] = 7;   TM.typeF[4] = 7;
-           TM.nAtoms = 3;     TM.nCharges = 4;
+           TM.nAtoms[0] = 3;     TM.nCharges[0] = 4;
            // Only for tip4p it would have to be modified for other molecules or combination of molecules
-           for(int j = 0; j < TM.nMol*TM.sitesMol; j=j+5){
+           for(int j = 0; j < TM.nMol*TM.sitesMol[0]; j=j+5){
                TM.atomType[j] = 2;
                TM.atomType[j+1] = 3;
                TM.atomType[j+2] = 3;
                TM.atomType[j+3] = 4;
                TM.atomType[j+4] = 4;
            }
-           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol*3*j);}
+           for(int j = 0; j < TM.nMol; j++){TM.moleculeIndex[j] = (TM.sitesMol[0]*3*j);}
         }else if(name.equalsIgnoreCase("spc")){
 
         }
@@ -1302,14 +1302,14 @@ public class generateMolecularOrientationTest {
     public void GenSiteCoord(TheMatrix TM){
         double tx, ty, tz;
         for(int n = 0; n < TM.nMol; n++){
-            for(int j = 0; j < TM.sitesMol; j++){
+            for(int j = 0; j < TM.sitesMol[0]; j++){
                 tx = TM.rMatT[(n*9)+0]*TM.rmx[j] + TM.rMatT[(n*9)+3]*TM.rmy[j] + TM.rMatT[(n*9)+6]*TM.rmz[j];
                 ty = TM.rMatT[(n*9)+1]*TM.rmx[j] + TM.rMatT[(n*9)+4]*TM.rmy[j] + TM.rMatT[(n*9)+7]*TM.rmz[j];
                 tz = TM.rMatT[(n*9)+2]*TM.rmx[j] + TM.rMatT[(n*9)+5]*TM.rmy[j] + TM.rMatT[(n*9)+8]*TM.rmz[j];
 
-                TM.rxs[n*TM.sitesMol + j] = TM.rx[n] + tx;
-                TM.rys[n*TM.sitesMol + j] = TM.ry[n] + ty;
-                TM.rzs[n*TM.sitesMol + j] = TM.rz[n] + tz;
+                TM.rxs[n*TM.sitesMol[0] + j] = TM.rx[n] + tx;
+                TM.rys[n*TM.sitesMol[0] + j] = TM.ry[n] + ty;
+                TM.rzs[n*TM.sitesMol[0] + j] = TM.rz[n] + tz;
             }
         }
     }
