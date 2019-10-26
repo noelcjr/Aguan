@@ -1,5 +1,5 @@
 package Aguan.files;
-import Utilities.binaryManipulation;
+import Aguan.Utilities.binaryManipulation;
 import java.io.*;
 
 public class xtc extends trajectory {

@@ -19,7 +19,7 @@ ANGVELS n= 8 x 3 X(0),Y(0),Z(0)...X(n-1),Y(n-1),Z(n-1)
 7 279.2526803190927 279.2526803190927 279.2526803190927
 
 Angular velocity = (2*np.pi/36)/0.000625 = 279.2526803190927 radians per reduced unit of
-time, whic is equivalent to a femto-second. This is equivalent to 10 degrees per step.
+time, which is equivalent to a femto-second. This is equivalent to 10 degrees per step.
 
 Setup:
     An RST file is randomly generated, and manually modify to setup the test in the following

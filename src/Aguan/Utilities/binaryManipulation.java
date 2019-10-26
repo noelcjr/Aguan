@@ -1,4 +1,4 @@
-package Utilities;
+package Aguan.Utilities;
 import java.io.*;
 
 public class binaryManipulation{

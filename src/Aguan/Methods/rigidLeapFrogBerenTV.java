@@ -15,7 +15,6 @@ import java.util.*;
 public class rigidLeapFrogBerenTV extends MD{
     public rigidLeapFrogBerenTV(String[] args){
         super(args);
-        TM.logfile = fileName+"_"+(TM.restartCount-1)+".log";            LOG = new log(TM.logfile);
         AccumProps(TM, 0);
              if(TM.boundaryCondition.equals("periodic")){    super.ComputeSiteForces(TM);}
         else if(TM.boundaryCondition.equals("xyzWall")){      ComputeSiteForcesWxyz(TM);  ComputeWallForcesXYZ(TM);}
@@ -77,13 +76,11 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 1); 
             if(TM.stepCount % TM.stepAvg == 0){ 
                AccumProps(TM, 2); 
-               LOG.HistogramWaters(TM,timeNow);
                OUT.PrintSummary_ave(TM,timeNow);
                AccumProps(TM, 0); 
             }   
         }else{
             AccumProps(TM, 1); 
-            LOG.HistogramWaters(TM,timeNow);
             OUT.PrintSummary(TM,timeNow);
             AccumProps(TM, 0);
         }
@@ -109,13 +106,11 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 1); 
             if(TM.stepCount % TM.stepAvg == 0){ 
                AccumProps(TM, 2); 
-               LOG.HistogramWaters(TM,timeNow);
                OUT.PrintSummary_ave(TM,timeNow);
                AccumProps(TM, 0); 
             }   
         }else{
             AccumProps(TM, 1); 
-            LOG.HistogramWaters(TM,timeNow);
             OUT.PrintSummary(TM,timeNow);
             AccumProps(TM, 0);
         }
@@ -140,13 +135,11 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 1);
             if(TM.stepCount % TM.stepAvg == 0){
                AccumProps(TM, 2);
-               LOG.HistogramWaters(TM,timeNow);
                OUT.PrintSummary_ave(TM,timeNow);
                AccumProps(TM, 0);
             }
         }else{
             AccumProps(TM, 1);
-            LOG.HistogramWaters(TM,timeNow);
             OUT.PrintSummary(TM,timeNow);
             AccumProps(TM, 0);
         }
