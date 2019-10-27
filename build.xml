@@ -16,7 +16,7 @@
 
 <target name="jar">
         <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/Aguan.jar" basedir="build/classes">
+        <jar destfile="build/jar/Aguan_1.0.jar" basedir="build/classes">
             <manifest>
                 <attribute name="Main-Class" value="Aguan.Main"/>
             </manifest>

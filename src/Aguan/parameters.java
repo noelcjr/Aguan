@@ -82,17 +82,17 @@ public class parameters{
            // It is not much different from a noble gas in its parameters.
            // Noble gases will be added later when the code is made capable of dealing with
            // many atom types and their paramters.
-        }else{}/*else if(name.equalsIgnoreCase("st2")){
-           TM.sitesMol[0] = 5;
-           TM.bCon = 83.8262;
-           TM.ro = 3.1000;
-           TM.ep =0.0757;
-           TM.pre_convFact = 17.654342;
-           TM.density_convFact = 0.9966979;
-           TM.mInertX = 0.00980;
-           TM.mInertY = 0.00340;
-           TM.mInertZ = 0.00640;
-        }else if(name.equalsIgnoreCase("spc")){
+        }else if(name.equalsIgnoreCase("st2")){
+           TM.sitesMol[TM.nMolTypes] = 5;
+           TM.bCon[TM.nMolTypes] = 83.892285; // Fixed
+           TM.ro[TM.nMolTypes] = 0.31000;  // Fixed
+           TM.ep[TM.nMolTypes] = 0.31694;  // Fixed
+           TM.pre_convFact[TM.nMolTypes] = 17.66611; // fixed
+           TM.density_convFact[TM.nMolTypes] = 0.993755; // Fixed
+           TM.mInertX[TM.nMolTypes] = 0.00980; // 
+           TM.mInertY[TM.nMolTypes] = 0.00340; //
+           TM.mInertZ[TM.nMolTypes] = 0.00640; //
+        }else{}/*else if(name.equalsIgnoreCase("spc")){
         
         }else if(name.equalsIgnoreCase("ne")){
         */
