@@ -70,9 +70,9 @@ public class ntraj {
               command_description();
            }
     }
-    private void trajqueryDCD(){                               DCD.trajquery();}
-    private void trajqueryXTC(){                               XTC.trajquery();}
-    private void trajqueryTRR(){                               TRR.trajquery();}
+    private void trajqueryDCD(){DCD.trajquery();}
+    private void trajqueryXTC(){XTC.trajquery();}
+    private void trajqueryTRR(){TRR.trajquery();}
     private void mod_headerDCD(String trj2, String o, int val){DCD.mod_header(trj2,o,val);}
     private void mod_headerDCD(String trj2, String o, int val, String o2, int val2){DCD.mod_header(trj2,o,val,o2,val2);}
     private void mod_headerXTC(String trj2, String o, int val){System.out.println("mod_header for XTC files not implemented.");

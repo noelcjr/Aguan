@@ -53,6 +53,7 @@ public class MD{
         if(args[0].equals("-m")){
            dcdM.write_header("CORD",((TM.stepLimit/TM.trajOut)+1),1, 1, TM.sitesNoVDW);
         }else if(args[0].equals("-s")){
+           // System.out.println("(TM.stepLimit/TM.trajOut) = "+(TM.stepLimit/TM.trajOut)+" TM.sitesNoVDW "+TM.sitesNoVDW);
            dcdM.write_header("CORD",(TM.stepLimit/TM.trajOut),1, 1, TM.sitesNoVDW);
         }
         if(TM.stepLimit > 0){TM.moreCycles = true;}else{TM.moreCycles = false;}
@@ -303,7 +304,6 @@ public class MD{
             TM.pressureSum /= TM.stepAvg;
         }
     }
-
     public void ComputeSiteForces(TheMatrix TM){
         double drx, dry, drz, shiftx, shifty, shiftz;
         double fcValEE, fcValRF, rr1, rr2, rr3, rrCut2, rrCut3, rri, rri3, uVal, uValVDW, uValEE;
@@ -670,8 +670,8 @@ public class MD{
                 drx = TM.rx[m1] - TM.rx[m2];           
                 dry = TM.ry[m1] - TM.ry[m2];          
                 drz = TM.rz[m1] - TM.rz[m2];
-		shiftx = shifty = 0.0; //shiftz = 0.0;
-		if(drx >= 0.5*TM.regionX)  shiftx = shiftx - TM.regionX;  
+		        shiftx = shifty = 0.0; //shiftz = 0.0;
+		        if(drx >= 0.5*TM.regionX)  shiftx = shiftx - TM.regionX;
                 else if(drx < -0.5*TM.regionX) shiftx = shiftx + TM.regionX; 
                 if(dry >= 0.5*TM.regionY)  shifty = shifty - TM.regionY;
                 else if(dry < -0.5*TM.regionY) shifty = shifty + TM.regionY;
@@ -709,7 +709,7 @@ public class MD{
                                         break;
                                     case 6:                                       
                                         uValEE = TM.bCon[0]/rr1;
-					fcValEE = uValEE * rri;
+					                    fcValEE = uValEE * rri;
                                         break;
                                     case 12:
                                         // LJ particle is negative and repels oxygen

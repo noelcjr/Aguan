@@ -144,6 +144,9 @@ public class dcdManager {
           data_out.writeInt((int)164);      // Title size = 244                                //   4 264
           data_out.writeInt((int)4);        // Just a number 4                                 //   4 268
           data_out.writeInt((int)N);                                                           //   4 272
+           System.out.println("Inside dcdManager.write_header");
+           System.out.println("nset="+nset);
+           System.out.println("NNN="+N);
           data_out.writeInt((int)4);        // Total number of bytes in header 276 when title = 164 // 4 276
           //   data_out.flush();
         }catch( IOException e ){System.err.println( e );}
@@ -235,16 +238,26 @@ public class dcdManager {
         }
     }*/
 
-    public void write_dcdStep(int nn, int nMol, int[] atomType, int[] sitesMolIdx, double[] Xc, double[] Yc, double[] Zc, double ro){
+    public void write_dcdStep(int nn, int nMol, int[] atomType, int[] sitesMolIdx, double[] Xc, double[] Yc, double[] Zc, double ro, String[] nMolNames){
         try{
             data_out.writeInt((int)(nn*4));
             int index = 0;
+            int ccc = 0;
+            //System.out.println("nMolNames.length "+nMolNames.length+" sitesMolIdx.length "+sitesMolIdx.length+" Xc.length "+Xc.length);
             for(int n = 0; n < nMol; n++){
                 // NOTE: J = 1 because in this case VDW particle is always the first particle FIX!!
+                //System.out.println("-- "+n+" "+sitesMolIdx[n]+" "+atomType[n]+"  nMolNames="+nMolNames[n]);
                 for(int j = 0; j < sitesMolIdx[n]; j++){
                     if(j != 0){
-                       //System.out.println(n+" "+j+" "+sitesMolIdx[n]+" "+atomType[n]+" "+(Xc[index+j]*ro)+" "+(Yc[index+j]*ro)+" "+(Zc[index+j]*ro)+" ro="+ro);
+                       //System.out.println("    "+ccc+" "+index + " " + j + " " + nMolNames[n] + " " + n + " " + j + " " + sitesMolIdx[n] + " " + atomType[n] + "nMolNames=" + nMolNames[n]);
                        data_out.writeFloat((float)(Xc[index+j]*ro));
+                       ccc = ccc + 4;
+                    }else {
+                        if (nMolNames[n].equals("tip5p")) {
+                            //System.out.println("    "+ccc+" "+index + " " + j + " " + nMolNames[n] + " " + n + " " + j + " " + sitesMolIdx[n] + " " + atomType[n] + "nMolNames=" + nMolNames[n]);
+                            data_out.writeFloat((float)(Xc[index+j]*ro));
+                            ccc = ccc + 4;
+                        }
                     }
                 }
                 index = index + sitesMolIdx[n];
@@ -257,6 +270,12 @@ public class dcdManager {
                 for(int j = 0; j < sitesMolIdx[n]; j++){
                     if(j != 0){
                        data_out.writeFloat((float)(Yc[index+j]*ro));
+                        ccc = ccc + 4;
+                    }else {
+                        if (nMolNames[n].equals("tip5p")) {
+                            data_out.writeFloat((float)(Yc[index+j]*ro));
+                            ccc = ccc + 4;
+                        }
                     }
                 }
                 index = index + sitesMolIdx[n];
@@ -265,14 +284,21 @@ public class dcdManager {
             data_out.writeInt((int)(nn*4));    // 4 48
             index = 0;
             for(int n = 0; n < nMol; n++){
-                for(int j = 1; j < sitesMolIdx[n]; j++){
+                for(int j = 0; j < sitesMolIdx[n]; j++){
                    if(j != 0){
                       data_out.writeFloat((float)(Zc[index+j]*ro));
+                       ccc = ccc + 4;
+                   }else {
+                       if (nMolNames[n].equals("tip5p")) {
+                           data_out.writeFloat((float)(Zc[index+j]*ro));
+                           ccc = ccc + 4;
+                       }
                    }
                 }
                 index = index + sitesMolIdx[n];
             }
             data_out.writeInt((int)(nn*4));    // 4 48
+            //System.out.println("ccc = "+ccc+" + 24 ="+(ccc+24));
         }catch( IOException e ){System.err.println( e );}
     }
     /**public void write_dcdStep(int n, int[] atomType, double[] Xc, double[] Yc, double[] Zc, double ro){

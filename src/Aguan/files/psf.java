@@ -27,7 +27,9 @@ public class psf extends pointer{
         int particleCount, bondCount;
         particleCount = 0;
         bondCount = 0;
+        //System.out.println("nMol TM.nMolNames TM.sitesMolIdx");
         for(int i = 0; i < TM.nMol; i++){
+            //System.out.println(i+" "+TM.nMolNames[i]+" "+TM.sitesMolIdx[i]);
             if(TM.nMolNames[i].equals("tip5p") || TM.nMolNames[i].equals("st2")){
                 particleCount = particleCount + TM.sitesMolIdx[i];
                 bondCount = bondCount + 6;
@@ -146,7 +148,7 @@ public class psf extends pointer{
               }
               molCount++;
            }else if(TM.nMolNames[i].equalsIgnoreCase("wt0LJ") || TM.nMolNames[i].equalsIgnoreCase("wt1LJ")  || TM.nMolNames[i].equalsIgnoreCase("wt2LJ")  || TM.nMolNames[i].equalsIgnoreCase("wt3LJ")){
-              molName = "wt"+TM.nMolNames[i].substring(2,3)+"LJ";
+              molName = TM.nMolNames[i].substring(2,3)+"LJ";
               for(int j = 0; j < (TM.sitesMolIdx[i]-1); j++){
                 charge = 0.0;      atomTyp = "NBL";    atomTyp2 = "NB";    weight = 18.0000;
                 //ppsf.printf("%8d W %4d %7s %-3s %3s %12f %13.5f %11d %9.5f %18s\n",atomCount,molCount,molName,atomTyp,atomTyp2,charge,weight,0,0.0,"-0.301140E-026");
@@ -155,7 +157,7 @@ public class psf extends pointer{
               }
               molCount++;
            }else if(TM.nMolNames[i].equalsIgnoreCase("wt4LJ") || TM.nMolNames[i].equalsIgnoreCase("wt5LJ")  || TM.nMolNames[i].equalsIgnoreCase("wt6LJ")  || TM.nMolNames[i].equalsIgnoreCase("wt7LJ")){
-              molName = "wt"+TM.nMolNames[i].substring(2,3)+"LJ";
+              molName = TM.nMolNames[i].substring(2,3)+"LJ";
               for(int j = 0; j < (TM.sitesMolIdx[i]-1); j++){
                 charge = 0.0;      atomTyp = "NBL";    atomTyp2 = "NB";    weight = 18.0000;
                 //ppsf.printf("%8d W %4d %7s %-3s %3s %12f %13.5f %11d %9.5f %18s\n",atomCount,molCount,molName,atomTyp,atomTyp2,charge,weight,0,0.0,"-0.301140E-026");
@@ -164,7 +166,7 @@ public class psf extends pointer{
               }
               molCount++;
            }else if(TM.nMolNames[i].equalsIgnoreCase("wt8LJ") || TM.nMolNames[i].equalsIgnoreCase("wt9LJ")  || TM.nMolNames[i].equalsIgnoreCase("wtXLJ")){
-              molName = "wt"+TM.nMolNames[i].substring(2,3)+"LJ";
+              molName = TM.nMolNames[i].substring(2,3)+"LJ";
               for(int j = 0; j < (TM.sitesMolIdx[i]-1); j++){
                 charge = 0.0;      atomTyp = "NBL";    atomTyp2 = "NB";    weight = 18.0000;
                 //ppsf.printf("%8d W %-4d %7s %-3s %3s %12f %13.5f %11d %9.5f %18s\n",atomCount,molCount,molName,atomTyp,atomTyp2,charge,weight,0,0.0,"-0.301140E-026");

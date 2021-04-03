@@ -302,7 +302,7 @@ public class parameters{
               indexCount = indexCount + TM.sitesMol[TM.nMolTypes];
            }
            TM.nAtoms[TM.nMolTypes] = 3;     TM.nCharges[TM.nMolTypes] = 4;
-           TM.nPoints[TM.nMolTypes] = 5;    TM.vdwPoint[TM.nMolTypes] = 7;
+           TM.nPoints[TM.nMolTypes] = 5;    TM.vdwPoint[TM.nMolTypes] = 0; // used to be 7 but it was a bug
         }else if(name.equalsIgnoreCase("st2")){
            for(int i = 0; i < numbMolecs; i++){
               TM.rmx[indexCount+0] = -0.0207;
@@ -322,7 +322,7 @@ public class parameters{
               indexCount = indexCount + TM.sitesMol[TM.nMolTypes];
            }
            TM.nAtoms[TM.nMolTypes] = 3;     TM.nCharges[TM.nMolTypes] = 4;
-           TM.nPoints[TM.nMolTypes] = 5;    TM.vdwPoint[TM.nMolTypes] = 7;
+           TM.nPoints[TM.nMolTypes] = 5;    TM.vdwPoint[TM.nMolTypes] = 0;
         }else if(name.equalsIgnoreCase("spc")){
 
         }

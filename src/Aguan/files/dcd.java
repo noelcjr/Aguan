@@ -137,16 +137,16 @@ public class dcd extends trajectory {
            first_int = dis.readInt();  
            System.out.println(countBytes+" "+first_int);    countBytes += 4;
            if(first_int != 84){
-	      System.out.println("The first byte is not equal to 84. It is equal to "+first_int);
-	      System.out.println("This means that the DCD file is eithe little endian or corrupted");
-	      return "BAD DCD FORMAT: First Int is not 84.";
+	          System.out.println("The first byte is not equal to 84. It is equal to "+first_int);
+	          System.out.println("This means that the DCD file is eithe little endian or corrupted");
+	          return "BAD DCD FORMAT: First Int is not 84.";
            }
            StringBuffer buffer = new StringBuffer();
            buffer.append((char)dis.readByte());   // 67
            buffer.append((char)dis.readByte());   // 79
            buffer.append((char)dis.readByte());   // 82
            buffer.append((char)dis.readByte());   // 68
-       //    System.out.println("Int = "+dis.readInt());   // 1129271876
+           //    System.out.println("Int = "+dis.readInt());   // 1129271876
            header = buffer.toString();                      countBytes += 4;
            if(!header.equals("CORD")){return "BAD DCD FORMAT: Not CORD header.";}
            NSET = dis.readInt();                            countBytes += 4;
@@ -156,7 +156,7 @@ public class dcd extends trajectory {
            for(i = 0; i < 5; i++){ infoArr5[i] = dis.readInt(); countBytes += 4;}
            NAMNF = dis.readInt();                           countBytes += 4;
            DELTA = dis.readFloat();                         countBytes += 4;
-       //    System.out.println("DELTA + "+dis.readInt());   // 1026003170
+           //    System.out.println("DELTA + "+dis.readInt());   // 1026003170
            for(i = 0; i < 10; i++){
 	       infoArr10[i] = dis.readInt();                countBytes += 4;
            }

@@ -81,7 +81,7 @@ public class minimization extends MD{
             TM.stepCount = -1*TM.stepLimit;
             for(int i = 0; i < TM.stepLimit; i++){
                index = 0;
-               dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+               dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
                timeNow = TM.stepCount * TM.deltaT;
                AccumProps(TM, 0); 
                ComputeSiteForcesWz(TM);
@@ -108,7 +108,7 @@ public class minimization extends MD{
                GenSiteCoord(TM);
                TM.stepCount++;
             }   
-            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
     }
     public void minJob(TheMatrix TM){
         double tfx, tfy, tfz;
@@ -116,7 +116,7 @@ public class minimization extends MD{
         TM.stepCount = -1*TM.stepLimit;
         for(int i = 0; i < TM.stepLimit; i++){
             index = 0;
-            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
             timeNow = TM.stepCount * TM.deltaT;
             AccumProps(TM, 0);
             ComputeSiteForces(TM);
@@ -142,7 +142,7 @@ public class minimization extends MD{
             GenSiteCoord(TM);
             TM.stepCount++;
          }
-         dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+         dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
     }
     public void minimization(TheMatrix TM){
         double dx, dy, dz;

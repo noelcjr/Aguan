@@ -50,6 +50,7 @@ public class restart extends file {
                argCount = 2;
                super.openOutputWriter(args[argCount]+"_0.rst");
                //System.out.println(args[argCount]+" .rst");
+               //System.out.println("time java -jar $a -c -random A 2.0 2.0 2.0 0 2 216 tip5p 108 wt0LJ");
                argCount++;
                pout = super.PW;
                TM.restartCount = 0;
@@ -73,7 +74,7 @@ public class restart extends file {
                       parameters.DefinePar(TM,args[argCount+2]);
                       TM.moleculeTypeIndex[i] = TM.totalSitesNumber; 
                       TM.moleculeTypeIndex[i+1] = TM.totalSitesNumber + (Integer.parseInt(args[argCount+1])*TM.sitesMol[TM.nMolTypes]);
-                      //System.out.println("From "+TM.moleculeTypeIndex[i]+" to "+TM.moleculeTypeIndex[i+1]+" "+TM.vdwPoint[TM.nMolTypes]);
+                      //System.out.println("     From "+TM.moleculeTypeIndex[i]+" to "+TM.moleculeTypeIndex[i+1]+" "+TM.vdwPoint[TM.nMolTypes]);
                       TM.totalSitesNumber = TM.totalSitesNumber + (Integer.parseInt(args[argCount+1])*TM.sitesMol[TM.nMolTypes]);
                       TM.nMol = TM.nMol + Integer.parseInt(args[argCount+1]);          
                       TM.nMolTypes++;
@@ -81,10 +82,10 @@ public class restart extends file {
                   }
                   //System.out.println("Between loops");
                   //for(int i = 0; i < TM.nMol; i++){
-                  //    System.out.println(i+" "+TM.nMol+" "+TM.nMolTypes+" "+TM.sitesMol.length+" "+TM.vdwPoint.length);
-                  //    System.out.println(TM.sitesMol[TM.nMolTypes]);
-                  //    System.out.println(TM.vdwPoint[TM.nMolTypes]);
-                  //    TM.sitesNoVDW = TM.sitesNoVDW + (TM.sitesMol[TM.nMolTypes]-TM.vdwPoint[TM.nMolTypes]);
+                      //System.out.println(i+" "+TM.nMol+" "+TM.nMolTypes+" "+TM.sitesMol.length+" "+TM.vdwPoint.length);
+                      //System.out.println(TM.sitesMol[TM.nMolTypes]);
+                      //System.out.println(TM.vdwPoint[TM.nMolTypes]);
+                      //TM.sitesNoVDW = TM.sitesNoVDW + (TM.sitesMol[TM.nMolTypes]-TM.vdwPoint[TM.nMolTypes]);
                   //}
                   //System.out.println("TM.totalSitesNumber = "+TM.totalSitesNumber+"  TM.sitesNoVDW="+TM.sitesNoVDW);
                   // Using TM.ro[0]. This is ok because tip3p and watLJ have identical ro parameters.
@@ -93,9 +94,9 @@ public class restart extends file {
                   TM.regionY = Double.parseDouble(args[4])/TM.ro[0];    // Box Y
                   TM.regionZ = Double.parseDouble(args[5])/TM.ro[0];    // Box Z
                   TM.initMatrix();
-                   //System.out.println("TM.nMol = "+TM.nMol);
-                   //System.out.println("TM.nMolTypes = "+TM.nMolTypes);
-                   //System.out.println("molecules = "+molecules);
+                  //System.out.println("TM.nMol = "+TM.nMol);
+                  //System.out.println("TM.nMolTypes = "+TM.nMolTypes);
+                  //System.out.println("molecules = "+molecules);
                   // Because this could not be done until after Matrix is initialized.
                   TM.nMolTypes = 0;
                   nMolNames = 0;
@@ -108,13 +109,13 @@ public class restart extends file {
                    //    TM.nMolTypes++;
                    //   tempArgCount = tempArgCount + 2;
                    //}
-                   //System.out.println("args["+tempArgCount+"] = "+args[tempArgCount]);
-                   tempArgCount++; 
+                   tempArgCount++;
+                   System.out.println("tempArgCount args["+tempArgCount+"] = "+args[tempArgCount]);
                    for(int i = 0; i < iterations; i = i + 2){
-                        //System.out.println(i+" "+Integer.parseInt(args[tempArgCount])+" "+args[tempArgCount+1]);
+                        System.out.println(i+" "+Integer.parseInt(args[tempArgCount])+" "+args[tempArgCount+1]);
                         parameters.DefineMol(TM,Integer.parseInt(args[tempArgCount]),args[tempArgCount+1]);
                         for(int j = 0; j < Integer.parseInt(args[tempArgCount]); j++){
-                            //System.out.println("args[tempArgCount+1]="+args[tempArgCount+1]);
+                            System.out.println("args[tempArgCount+1]="+args[tempArgCount+1]);
                             TM.nMolNames[nMolNames] = args[tempArgCount+1];
                             TM.sitesMolIdx[nMolNames] = TM.sitesMol[TM.nMolTypes];
                             TM.vdwPointIdx[nMolNames] = TM.vdwPoint[TM.nMolTypes];
@@ -126,14 +127,16 @@ public class restart extends file {
                    for(int i = 0; i < TM.nMol; i++){
                        TM.sitesNoVDW = TM.sitesNoVDW + TM.sitesMolIdx[i] - TM.vdwPointIdx[i];
                    }
+                   System.out.println("Inside RR.restart -random");
+                   System.out.println("TM.sitesNoVDW "+TM.sitesNoVDW );
                    // Added up to here
                    // System.out.print("Molnames: ");
-                   //for(int i = 0; i < TM.nMol; i++){System.out.print(TM.nMolNames[i]+" ");}
+                   // for(int i = 0; i < TM.nMol; i++){System.out.print(i+""+TM.nMolNames[i]+"--");}
                    // System.out.println();
                    // System.out.println("moleculeTypeIndex output.");
                    //for(int i = 0; i < TM.moleculeTypeIndex.length; i++){System.out.println(i+" "+TM.moleculeTypeIndex[i]);}
-                   // System.out.println("rmx, rmy and rmz output.");
-                   //for(int i = 0; i < TM.totalSitesNumber; i++){System.out.printf("%d % 3.4f % 3.4f % 3.4f %d %d\n",i,TM.rmx[i],TM.rmy[i],TM.rmz[i],TM.typeF[i],TM.atomType[i]);}                  
+                   // System.out.println("rmx, rmy and rmz TM.typeF TM.atomType.");
+                   //for(int i = 0; i < TM.totalSitesNumber; i++){System.out.printf("%d % 3.4f % 3.4f % 3.4f %d %d\n",i,TM.rmx[i],TM.rmy[i],TM.rmz[i],TM.typeF[i],TM.atomType[i]);}
                    RandomGenerate(TM, randomSeed, args[1]); // args[8] is the seed to reproduce random number generation.
                    writeRestartIn(TM);
                    //System.out.println("Restart file "+args[2]+"_0.rst has been created.");
@@ -364,7 +367,8 @@ public class restart extends file {
                        TM.nMolTypes++;
                        argCount = argCount + 2;
                    }
-                   //System.out.println("TM.sitesNoVDW="+TM.sitesNoVDW);
+                   System.out.println("Inside RR.ReadRestartHeader");
+                   System.out.println("TM.sitesNoVDW="+TM.sitesNoVDW);
                    //TM.regionX = Double.parseDouble(args[3])/TM.ro[0];    // Box X
                    //TM.regionY = Double.parseDouble(args[4])/TM.ro[0];    // Box Y
                    //TM.regionZ = Double.parseDouble(args[5])/TM.ro[0];    // Box Z
@@ -378,22 +382,29 @@ public class restart extends file {
                             TM.nMolNames[nMolNames] = args[tempArgCount+1];
                             TM.sitesMolIdx[nMolNames] = TM.sitesMol[TM.nMolTypes];
                             TM.vdwPointIdx[nMolNames] = TM.vdwPoint[TM.nMolTypes];
+                            //System.out.println("nMolNames = "+nMolNames+" TM.vdwPoint[TM.nMolTypes] "+TM.vdwPoint[TM.nMolTypes]+" TM.nMolTypes "+TM.nMolTypes);
                             nMolNames++;
                         }
                         TM.nMolTypes++;
                         tempArgCount = tempArgCount + 2;
                    }
+
+                   //System.out.println("TM.sitesMolIdx.length "+TM.sitesMolIdx.length);
+                   //System.out.println("TM.vdwPointIdx.length "+TM.vdwPointIdx.length);
+                   //System.out.println("TM.sitesNoVDW "+TM.sitesNoVDW );
                    for(int i = 0; i < TM.nMol; i++){
                        TM.sitesNoVDW = TM.sitesNoVDW + TM.sitesMolIdx[i] - TM.vdwPointIdx[i];
+                       //System.out.println(i+" "+TM.sitesNoVDW+" "+TM.sitesMolIdx[i]+" "+TM.vdwPointIdx[i]);
                    }
+                    System.out.println("TM.sitesNoVDW "+TM.sitesNoVDW );
                    // TODO: ATOMTYPE AND TYPEF ARE IDENTICAL.. CHECK AND ELIMINATE REDUNDANCY.
                    //System.out.println("# atomType typeF");
                    //for(int i = 0; i < TM.sitesMolIdx.length; i++){
-                   //   System.out.println(i+" "+TM.nMol+" "+TM.sitesMolIdx[i]);
-                   //System.out.printf("%d % .3f % .3f % .3f % .3f % .3f\n",i,TM.atomType[i],TM.typeF[i],TM.rxs[i],TM.rys[i],TM.rzs[i]);
-                   //  System.out.println(i+" "+TM.atomType[i]+" "+TM.typeF[i]+" "+TM.rxs[i]+" "+TM.rys[i]+" "+TM.rzs[i]);
+                      //System.out.println(i+" "+TM.nMol+" "+TM.sitesMolIdx[i]);
+                      //System.out.printf("%d % .3f % .3f % .3f % .3f % .3f\n",i,TM.atomType[i],TM.typeF[i],TM.rxs[i],TM.rys[i],TM.rzs[i]);
+                     // System.out.println(i+" "+TM.atomType[i]+" "+TM.typeF[i]+" "+TM.rxs[i]+" "+TM.rys[i]+" "+TM.rzs[i]);
                    //}
-                   // System.out.println("TM.sitesNoVDW = "+TM.sitesNoVDW+" TM.totalSitesNumber = "+TM.totalSitesNumber);
+                   //System.out.println("TM.sitesNoVDW = "+TM.sitesNoVDW+" TM.totalSitesNumber = "+TM.totalSitesNumber);
              }
            }
         }catch( IOException e ){System.err.println( e );}
@@ -490,8 +501,7 @@ public class restart extends file {
             }
          }catch( IOException e ){System.err.println( e );}
      }
-
-     public void RandomGenerate(TheMatrix TM, long seed, String type){
+    public void RandomGenerate(TheMatrix TM, long seed, String type){
         double[] p, tq;
         double s = 0;
         int k, k1, k2;
@@ -582,7 +592,6 @@ public class restart extends file {
              }
         }
      }
-
     public void GenSiteCoord(TheMatrix TM){
         double tx, ty, tz;
         int index = 0;

@@ -85,7 +85,7 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 0);
         }
         if(TM.stepCount % TM.trajOut == 0){
-            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
             RR.writeRestart(TM);
         }
     }
@@ -115,7 +115,7 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 0);
         }
         if(TM.stepCount % TM.trajOut == 0){
-            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
             RR.writeRestart(TM);
         }
     }
@@ -144,7 +144,7 @@ public class rigidLeapFrogBerenTV extends MD{
             AccumProps(TM, 0);
         }
         if(TM.stepCount % TM.trajOut == 0){
-            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0]);
+            dcdM.write_dcdStep(TM.sitesNoVDW,TM.nMol,TM.atomType,TM.sitesMolIdx,TM.rxs,TM.rys,TM.rzs,TM.ro[0],TM.nMolNames);
             RR.writeRestart(TM);
         }
     }
